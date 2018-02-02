@@ -1,21 +1,14 @@
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
-import {
-  componentFromStreamWithConfig,
-  compose,
-  createEventHandlerWithConfig,
-  mapPropsStreamWithConfig,
-  toClass
-} from 'recompose'
-import { Subject, Observable, BehaviorSubject } from 'rxjs'
 import { Component, ComponentClass } from 'react'
+import * as ReactDOM from 'react-dom'
+import { compose } from 'recompose'
+import { BehaviorSubject } from 'rxjs'
+
 import { mapPropsStream } from './utils/mapPropsStream'
 
-// TODO: check if .value is safe dut to concurrency
 const numbers$ = new BehaviorSubject<number[]>([1])
-numbers$.subscribe(x => console.log(x))
-numbers$.next([...numbers$.value, 2])
-setTimeout(() => numbers$.next([...numbers$.value, 3]), 2000)
+numbers$.next([...numbers$.getValue(), 2])
+setTimeout(() => numbers$.next([...numbers$.getValue(), 3]), 2000)
 
 interface StateFormStream {
   numbers: number[]
@@ -26,7 +19,7 @@ const TestView: React.StatelessComponent<any> = props => (
 )
 
 const Test = compose(
-  mapPropsStream<StateFormStream, {}>(props$ =>
+  mapPropsStream<StateFormStream>(props$ =>
     props$.combineLatest(numbers$, (props, numbers) => {
       return {
         ...props,
