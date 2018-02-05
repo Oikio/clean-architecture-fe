@@ -4,7 +4,15 @@ import * as ReactDOM from 'react-dom'
 import { compose, withStateHandlers } from 'recompose'
 import { BehaviorSubject } from 'rxjs'
 
+import { du } from './utils/du'
 import { mapPropsStream } from './utils/mapPropsStream'
+
+function* g() {
+  yield () => 3
+  yield () => 2 + 5
+  yield () => 'some'
+}
+du(g())
 
 // State
 // We can keep observables for state as subjects even in components, at least for now
@@ -36,7 +44,7 @@ const setLengthOfNumbers = _setLengthOfNumbers(numbers$)
 // TODO: how to work with actions, maybe it makes sense to bind them to streams in useCases?..
 
 // Types for component
-interface NumbersFromState {
+interface FromGlobalState {
   numbers: number[]
 }
 
@@ -45,7 +53,7 @@ interface State {
   updateLengthOfArray: (number: number) => void
 }
 
-type Props = NumbersFromState & State
+type Props = FromGlobalState & State
 
 // View
 const TestView: React.StatelessComponent<Props> = props => (
@@ -64,7 +72,7 @@ const TestView: React.StatelessComponent<Props> = props => (
 
 // Enhancer
 const Test = compose<Props, {}>(
-  mapPropsStream<NumbersFromState>(props$ =>
+  mapPropsStream<FromGlobalState>(props$ =>
     props$.combineLatest(numbers$, (props, numbers) => {
       return {
         ...props,

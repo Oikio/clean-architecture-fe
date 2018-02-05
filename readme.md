@@ -15,5 +15,8 @@ Components could be from any library, I will use React or Mithril, but it's an i
 Gateways, services and utils represent everything else.  
 ? Should use useCases for communication.
 
+NOTES:  
+Types are mess right now
+
 TODO:  
 write a todo...
