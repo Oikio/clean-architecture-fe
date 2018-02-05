@@ -1,5 +1,6 @@
 State as stream or redux store should be implementation detail.  
 Actions are store updaters.  
+Actions should work only with their own subject.
 Selectors are optional.
 
 UseCases should contain only business logic.  
