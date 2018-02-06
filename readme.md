@@ -19,4 +19,5 @@ NOTES:
 Types are mess right now
 
 TODO:  
-write a todo...
+Think about cancellable useCases
+Take a look at redux-observable
