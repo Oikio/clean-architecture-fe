@@ -27,6 +27,13 @@ export const du = (generator: Generator) => {
   }
 }
 
+function* g() {
+  yield () => 3
+  yield () => 2 + 5
+  yield () => 'some'
+}
+du(g())
+
 // export const update = () => { } // ? that's where we can bound actions
 // export const select = () => { } // ?
 
