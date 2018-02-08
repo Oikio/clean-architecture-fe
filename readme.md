@@ -20,4 +20,4 @@ Types are mess right now
 
 TODO:  
 Think about cancellable useCases
-Take a look at redux-observable
+Decide how dependant state streams should work
