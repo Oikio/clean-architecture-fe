@@ -1,23 +1,30 @@
-State as stream or redux store should be implementation detail.  
-Actions are store updaters.  
-Actions should work only with their own subject.
-Selectors are optional.
+# State
+State as stream.   
+Actions are dumb store updaters.  
+Actions should work only with their own subject.  
+Selectors are optional, you might not need them because you just use streams that you need.  
+Computed state should be in useCases, as long as it's part of business logic.
+If you want to use redux, see redux-observable, it's very promising library.
 
-UseCases should contain only business logic.  
-UseCases should know nothing about outer scope.  
-UseCases should be generators (need to write "do" library)  
-Generators should (due to IOC) help with DI, effects and testing (see redux-saga)
+# UseCases
+UseCases are streams.  
+UseCases should contain just business logic.  
+UseCases always return streams.  
+UseCases should know nothing about outer scope, but contracts.  
+If you want to use libraries like validation, ajax and so on inside useCases, use, but treat them as contracts then.  
 
-Components use only useCases to update global state.  
-Local state is appreciated if it makes sense.  
+# Components
+Components can only use useCases to interact with outer scope.  
+Outer knowledge should only come from state streams or useCases (e.g. if it's computed state).  
+Local state is appreciated especially if it's related to view.  
 Components could be from any library, I will use React or Mithril, but it's an implementation detail
 
 Gateways, services and utils represent everything else.  
-? Should use useCases for communication.
 
-NOTES:  
+# NOTES:  
 Types are mess right now
 
-TODO:  
-Think about cancellable useCases
-Decide how dependant state streams should work
+# TODO:  
+Think about cancellable useCases  
+Add tests, see how it works with useCases  
+Create more complicated app (Todo? Tweets?)  
