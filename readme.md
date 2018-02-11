@@ -25,6 +25,9 @@ Gateways, services and utils represent everything else.
 Types are mess right now
 
 # TODO:  
-Think about cancellable useCases  
-Add tests, see how it works with useCases  
-Create more complicated app (Todo? Tweets?)  
+Add persistant state example  
+Add computed state example  
+? Add state and usCases factories  
+Add tests, see how they should work with useCases  
+Add cancellable useCases  
+Create more complicated app, maybe just complete list of howtos.
