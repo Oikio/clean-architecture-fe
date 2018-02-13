@@ -3,7 +3,8 @@ import { tag } from 'rxjs-spy/operator/tag'
 
 import { clearNumbers } from '../../state/numbers'
 
-const clear$ = tag.call(new Subject<number>(), 'useCases/numbers/clear')
+const useCase$ = new Subject()
+const clear$: typeof useCase$ = tag.call(useCase$, 'useCases/numbers/clear')
 
 const _clear = (
   di: {

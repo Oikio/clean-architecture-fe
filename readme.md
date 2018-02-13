@@ -7,7 +7,7 @@ Computed state should be in useCases, as long as it's part of business logic.
 If you want to use redux, see redux-observable, it's very promising library.
 
 # UseCases
-UseCases are streams.  
+UseCases mostly are streams, but invoked as function.  
 UseCases should contain just business logic.  
 UseCases always return streams.  
 UseCases should know nothing about outer scope, but contracts.  
@@ -25,7 +25,8 @@ Gateways, services and utils represent everything else.
 Types are mess right now
 
 # TODO:  
-? Add state, usCases and enhancers factories (Looks like it's better to write just component enhancer, needs to be investigated)  
+Add proper logging tools
+Add state, usCases and enhancers factories
 Create a real simple app  
 Think about combined state streams without business logic  
 Add hydration of state example  

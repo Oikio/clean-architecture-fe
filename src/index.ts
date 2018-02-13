@@ -1,2 +1,2 @@
-import './services/rxSpy'
+import './services/logger'
 import './app'

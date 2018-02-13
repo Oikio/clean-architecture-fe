@@ -5,7 +5,8 @@ import { setNumbers } from '../../state/numbers'
 import { createNumbersArrOfLength } from '../../utils/createNumbersArrOfLength'
 
 // Create useCase stream
-const setLengthOfNumbers$ = tag.call(new Subject<number>(), 'useCases/numbers/setLength')
+const useCase$ = new Subject<number>()
+const setLengthOfNumbers$ = tag.call(useCase$, 'useCases/numbers/setLength')
 
 // Write business logic and specify DI
 const _setLengthOfNumbers = (
