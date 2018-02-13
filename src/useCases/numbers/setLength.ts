@@ -1,10 +1,11 @@
 import { Subject } from 'rxjs'
+import { tag } from 'rxjs-spy/operator/tag'
 
 import { setNumbers } from '../../state/numbers'
 import { createNumbersArrOfLength } from '../../utils/createNumbersArrOfLength'
 
 // Create useCase stream
-const setLengthOfNumbers$ = new Subject<number>()
+const setLengthOfNumbers$ = tag.call(new Subject<number>(), 'useCases/numbers/setLength')
 
 // Write business logic and specify DI
 const _setLengthOfNumbers = (

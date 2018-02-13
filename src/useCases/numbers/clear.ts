@@ -1,7 +1,9 @@
-import { clearNumbers } from '../../state/numbers'
-import { Subject } from 'rxjs';
+import { Subject } from 'rxjs'
+import { tag } from 'rxjs-spy/operator/tag'
 
-const clear$ = new Subject<number>()
+import { clearNumbers } from '../../state/numbers'
+
+const clear$ = tag.call(new Subject<number>(), 'useCases/numbers/clear')
 
 const _clear = (
   di: {
