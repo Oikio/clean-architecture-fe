@@ -25,10 +25,11 @@ Gateways, services and utils represent everything else.
 Types are mess right now
 
 # TODO:  
+Create a real simple app  
 Think about combined state streams without business logic  
-Add persistant state example  
+Add hydration of state example  
 Add computed state example  
 ? Add state and usCases factories  
 Add tests, see how they should work with useCases  
 Add cancellable useCases  
-Create more complicated app, maybe just complete list of howtos.
+Create more complex app, maybe just complete list of howtos.  
