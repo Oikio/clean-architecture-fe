@@ -27,10 +27,11 @@ Types are mess right now
 # TODO:  
 Add proper logging tools
 Add state, usCases and enhancers factories
-Create a real simple app  
+Decide how dependant useCases should work with each other
 Think about combined state streams without business logic  
+Create a real simple app (form, filtering, complex state)  
 Add hydration of state example  
 Add computed state example  
 Add tests, see how they should work with useCases  
 Add cancelable useCases  
-Create more complex app, maybe just complete list of howtos.  
+Create more complex app, maybe just develop a list of howtos.  
