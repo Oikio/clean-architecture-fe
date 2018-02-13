@@ -25,11 +25,11 @@ Gateways, services and utils represent everything else.
 Types are mess right now
 
 # TODO:  
+? Add state, usCases and enhancers factories (Looks like it's better to write just component enhancer, needs to be investigated)  
 Create a real simple app  
 Think about combined state streams without business logic  
 Add hydration of state example  
 Add computed state example  
-? Add state and usCases factories  
 Add tests, see how they should work with useCases  
-Add cancellable useCases  
+Add cancelable useCases  
 Create more complex app, maybe just complete list of howtos.  

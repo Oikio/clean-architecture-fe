@@ -1,32 +1,26 @@
-import { setNumbers } from '../../state/numbers'
-import { Subject } from 'rxjs';
+import { Subject } from 'rxjs'
 
+import { setNumbers } from '../../state/numbers'
+import { createNumbersArrOfLength } from '../../utils/createNumbersArrOfLength'
+
+// Create useCase stream
 const setLengthOfNumbers$ = new Subject<number>()
 
-const createArr = (n: number) => {
-  let i = 0
-  const arr = []
-  while (i < n) {
-    arr.push(i)
-    i++
-  }
-  return arr
-}
-
+// Write business logic and specify DI
 const _setLengthOfNumbers = (
-  di:
-    {
-      setLengthOfNumbers$: typeof setLengthOfNumbers$,
-      setNumbers: typeof setNumbers
-    }
+  di: {
+    setLengthOfNumbers$: typeof setLengthOfNumbers$,
+    setNumbers: typeof setNumbers
+  }
 ) => {
   di.setLengthOfNumbers$
-    .map(createArr)
+    .map(createNumbersArrOfLength)
     .do(di.setNumbers)
     .subscribe()
 
-  return (n: number) => setLengthOfNumbers$.next(n)
+  return (n: number) => di.setLengthOfNumbers$.next(n)
 }
 
-// The initialization can go to separate file, to prevent side effects during units tests
+// Initialize
+// The initialization can be in separate file, to prevent side effects during units tests
 export const setLengthOfNumbers = _setLengthOfNumbers({ setLengthOfNumbers$, setNumbers })
