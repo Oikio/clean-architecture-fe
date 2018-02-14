@@ -5,7 +5,7 @@ import { compose, withStateHandlers } from 'recompose'
 import { numbers$ } from '../state/numbers'
 import { clear } from '../useCases/numbers/clear'
 import { setLengthOfNumbers } from '../useCases/numbers/setLength'
-import { mapPropsStream } from '../utils/mapPropsStream'
+import { mapPropsStream } from '../utils/architecture/mapPropsStream'
 
 // Types for component
 interface FromGlobalState {
