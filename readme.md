@@ -26,6 +26,7 @@ Types are mess right now
 
 # TODO:  
 Important: See if pushing to Cells really the solution, maybe we can use some kind of flow?
+Try to use just modules from react, recompose and rxjs to minify bundle, test build version and how long does it take to evaluate js onload  
 Add proper logging tools
 Add state, usCases and enhancers factories
 Decide how dependant useCases should work with each other
