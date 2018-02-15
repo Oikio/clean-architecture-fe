@@ -13,4 +13,12 @@ const AppView: React.StatelessComponent<any> = props => (
 const App = AppView
 const root = document.createElement('div')
 document.body.appendChild(root)
-render(<App />, root)
+const renderApp = () => render(<App />, root)
+renderApp()
+
+// Webpack Hot Module Replacement API
+if (module.hot) {
+  module.hot.dispose(() => {
+    root.parentNode!.removeChild(root)
+  })
+}
