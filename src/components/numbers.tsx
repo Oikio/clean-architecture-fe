@@ -2,14 +2,14 @@ import * as React from 'react'
 import { Component, ComponentClass } from 'react'
 import { compose, withStateHandlers } from 'recompose'
 
-import { numbers$ } from '../state/numbers'
+import { numbers$, NumbersState } from '../state/numbers'
 import { clear } from '../useCases/numbers/clear'
 import { setLengthOfNumbers } from '../useCases/numbers/setLength'
 import { mapPropsStream } from '../utils/architecture/mapPropsStream'
 
 // Types for component
 interface FromGlobalState {
-  numbers: typeof numbers$['value']
+  numbers: NumbersState
 }
 
 interface State {
