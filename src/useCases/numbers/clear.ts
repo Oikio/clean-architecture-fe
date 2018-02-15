@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs'
 import { tag } from 'rxjs-spy/operator/tag'
 
-import { clearNumbers } from '../../state/numbers'
+import { clear as clearNumbers } from '../../state/numbers'
 
 const useCase$ = new Subject()
 const clear$: typeof useCase$ = tag.call(useCase$, 'useCases/numbers/clear')
