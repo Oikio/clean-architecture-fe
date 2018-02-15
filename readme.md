@@ -1,3 +1,7 @@
+# To run app
+```npm install -g parcel-bundler```  
+```npm run dev```
+
 # State
 State as stream.   
 Actions are dumb store updaters.  
