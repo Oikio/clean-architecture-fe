@@ -1,10 +1,7 @@
 # Concept
-UseCases - streams with business logic
-State is streams and can be updated only with stateUpdaters in useCases
-Action/Intent is an intent and the only way to update app? with DSL for useCases (see I in MVI)
-Computed state is consumable useCase stream
-Components are reactive and use Intents to produce changes outside their scope  
-...Todo...
+FRP and view libraries are just implementation details.  
+
+TODO: diagram of project structure.  
 
 # To run app
 ```npm install -g parcel-bundler```  
@@ -12,34 +9,35 @@ Components are reactive and use Intents to produce changes outside their scope
 
 # State
 State as stream.   
-Actions are dumb store updaters.  
-Actions should work only with their own subject.  
-Selectors are optional, you might not need them because you just use streams that you need.  
-Computed state should be in useCases, as long as it's part of business logic.
-If you want to use redux, see redux-observable, it's very promising library.
+StateUpdaters are dumb store updaters.  
+StateUpdaters should work only with their own Cell.  
+Selectors are optional, you might not need them because you just use streams which you need.  
+
+#Dispatcher
+Dispatcher is a stream of intents for useCases  
+Dispacther provides dispatch method for intents  
+
+# Intents
+Intents are dispatching events to Dispatcher  
+They are the only way to update useCases and can be used in top layer of application (in Components, Services and etc)
 
 # UseCases
-UseCases are reactive streams
+UseCases are streams subscribed to Dispatcher
 UseCases should contain just business logic.  
-UseCases always return streams.  
 UseCases should know nothing about outer scope, but contracts.  
 If you want to use libraries like validation, ajax and so on inside useCases, use, but treat them as contracts then.  
 
-#Actions
 
 # Components
-Components can only use useCases to interact with outer scope.  
-Outer knowledge should only come from state streams or useCases (e.g. if it's computed state).  
+Components can only use intents to interact with outer scope.  
+Outer knowledge should only come from state or computedState steams
 Local state is appreciated especially if it's related to view.  
-Components could be from any library, I will use React or Mithril, but it's an implementation detail
+Components can be from any library, I will use React, but it's an implementation detail
 
 Gateways, services and utils represent everything else.  
 
-# NOTES:  
-Types are mess right now
-
 # TODO:  
-Fix HMR with RxJS  
+Fix HMR for RxJS  
 Decide about namings (stateUpdater, intent and useCase should be devided)  
 Observable type are wrong (they have all operators in types), fidn the solution  
 Decide how flow of useCases, computedState, reactiveRules will work  
