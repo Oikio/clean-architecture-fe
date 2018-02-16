@@ -1,15 +1,16 @@
-import { Subject } from 'rxjs'
-import { tag } from 'rxjs-spy/operator/tag'
-
+import { dispatch } from 'dispatcher'
+import { filter, map, tap } from 'rxjs/operators'
 import { updateNumbers } from 'state/numbers'
+import { createIntent } from 'utils/architecture/createIntent'
+import { createUseCase } from 'utils/architecture/createUseCase'
 import { createNumbersArrOfLength } from 'utils/createNumbersArrOfLength'
-import { createUseCase } from 'utils/architecture/createUseCase';
-import { map, tap, filter } from 'rxjs/operators'
-import { SET_NUMBERS_LENGTH_INTENT } from 'intents/numbers';
 
 interface DI {
   updateNumbers: typeof updateNumbers
 }
+
+const SET_NUMBERS_LENGTH_INTENT = 'SET_NUMBERS_LENGTH_INTENT'
+export const setNumberLengthIntent = createIntent<number>(SET_NUMBERS_LENGTH_INTENT, dispatch)
 
 export const setLengthOfNumberUseCase = createUseCase<DI, number>('numbers/setLength', (intents$, di) =>
   intents$

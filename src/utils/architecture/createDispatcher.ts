@@ -1,5 +1,5 @@
-import { Subject } from 'rxjs/Subject'
 import { tag } from 'rxjs-spy/operators/tag'
+import { Subject } from 'rxjs/Subject'
 
 import { Intent } from './createIntent'
 

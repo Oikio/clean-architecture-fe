@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { render } from 'react-dom'
 
-import { Numbers } from './components/numbers'
+import { Numbers } from './components/Numbers'
 
 
 // App

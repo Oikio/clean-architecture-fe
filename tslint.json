@@ -1,0 +1,31 @@
+{
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rules": {
+    "quotemark": false,
+    "semicolon": false,
+    "interface-name": false,
+    "arrow-parens": false,
+    "trailing-comma": false,
+    "variable-name": [
+      true,
+      "check-format",
+      "allow-leading-underscore",
+      "allow-pascal-case"
+    ],
+    "object-literal-sort-keys": false,
+    "no-consecutive-blank-lines": [
+      true,
+      2
+    ],
+    "no-console": false,
+    "curly": [
+      true,
+      "ignore-same-line"
+    ],
+    "callable-types": false,
+    "ban-types": false,
+    "ordered-imports": false
+  }
+}

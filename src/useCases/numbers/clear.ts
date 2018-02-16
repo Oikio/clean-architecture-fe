@@ -1,8 +1,11 @@
-import { CLEAR_NUMBERS_INTENT } from 'intents/numbers'
+import { dispatch } from 'dispatcher'
 import { filter, tap } from 'rxjs/operators'
 import { clear as clearNumbers } from 'state/numbers'
+import { createIntent } from 'utils/architecture/createIntent'
 import { createUseCase } from 'utils/architecture/createUseCase'
 
+const CLEAR_NUMBERS_INTENT = 'CLEAR_NUMBERS_INTENT'
+export const clearNumbersIntent = createIntent(CLEAR_NUMBERS_INTENT, dispatch)
 
 interface DI {
   clearNumbers: typeof clearNumbers

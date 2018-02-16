@@ -2,8 +2,8 @@ import { create } from 'rxjs-spy'
 import { combineLatest } from 'rxjs/operators/combineLatest'
 import { tap } from 'rxjs/operators/tap'
 
+import { dispatcher$ } from '../dispatcher'
 import { numbers$ } from '../state/numbers'
-import { dispatcher$ } from '../dispatcher';
 
 // TODO: add logging for state and dispatcher
 // console.log(numbers$.operator.tag)

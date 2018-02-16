@@ -40,8 +40,6 @@ Gateways, services and utils represent everything else.
 # TODO:  
 Fix HMR for RxJS  
 Decide about namings (stateUpdater, intent and useCase should be devided)  
-Observable type are wrong (they have all operators in types), fidn the solution  
-Decide how flow of useCases, computedState, reactiveRules will work  
 Add proper logging tools  
 Add state, usCases and enhancers factories  
 Decide how dependant useCases should work with each other  
