@@ -13,13 +13,13 @@ StateUpdaters are dumb store updaters.
 StateUpdaters should work only with their own Cell.  
 Selectors are optional, you might not need them because you just use streams which you need.  
 
-#Dispatcher
+# Dispatcher
 Dispatcher is a stream of intents for useCases  
 Dispacther provides dispatch method for intents  
 
 # Intents
 Intents are dispatching events to Dispatcher  
-They are the only way to update useCases and can be used in top layer of application (in Components, Services and etc)
+They are the only way to update useCases and can be used in top layer of application (in Components, Services, Router and etc)
 
 # UseCases
 UseCases are streams subscribed to Dispatcher
@@ -33,6 +33,7 @@ Components can only use intents to interact with outer scope.
 Outer knowledge should only come from state or computedState steams
 Local state is appreciated especially if it's related to view.  
 Components can be from any library, I will use React, but it's an implementation detail
+Reusable components should be in components folder, routes in routes folder
 
 Gateways, services and utils represent everything else.  
 
