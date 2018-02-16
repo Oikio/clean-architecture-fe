@@ -11,12 +11,12 @@
   "author": "Oikio",
   "license": "ISC",
   "dependencies": {
-    "@most/core": "^1.2.0",
+    "@most/core": "^1.2.1",
     "@most/scheduler": "^1.1.0",
-    "@types/ramda": "^0.25.16",
-    "@types/react": "^16.0.36",
-    "@types/react-dom": "^16.0.3",
-    "@types/recompose": "^0.24.4",
+    "@types/ramda": "^0.25.18",
+    "@types/react": "^16.0.38",
+    "@types/react-dom": "^16.0.4",
+    "@types/recompose": "^0.24.5",
     "monet": "^0.8.10",
     "most-subject": "^6.0.0",
     "ospec": "^1.4.0",
@@ -29,6 +29,6 @@
   },
   "devDependencies": {
     "parcel-plugin-typescript": "^0.6.0",
-    "typescript": "^2.7.1"
+    "typescript": "^2.7.2"
   }
 }
