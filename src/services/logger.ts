@@ -1,11 +1,18 @@
 import { create } from 'rxjs-spy'
-import { Observable } from 'rxjs'
+import { combineLatest } from 'rxjs/operators/combineLatest'
+import { tap } from 'rxjs/operators/tap'
 
 import { numbers$ } from '../state/numbers'
+import { dispatcher$ } from '../dispatcher';
 
-// TODO: add logging for state
+// TODO: add logging for state and dispatcher
 // console.log(numbers$.operator.tag)
-Observable.combineLatest([numbers$]).do(console.log).subscribe()
+numbers$.pipe(
+  combineLatest([]),
+  tap((state) => console.log('stateIs: ', state))
+).subscribe()
+
+dispatcher$.pipe(tap(({ name, payload }) => console.log(`Intent to ${name} with: `, payload)))
 
 const spy = create()
 spy.log()

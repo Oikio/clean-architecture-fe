@@ -1,23 +1,17 @@
-import { Subject } from 'rxjs'
-import { tag } from 'rxjs-spy/operator/tag'
+import { CLEAR_NUMBERS_INTENT } from 'intents/numbers'
+import { filter, tap } from 'rxjs/operators'
+import { clear as clearNumbers } from 'state/numbers'
+import { createUseCase } from 'utils/architecture/createUseCase'
 
-import { clear as clearNumbers } from '../../state/numbers'
 
-const useCase$ = new Subject()
-const clear$: typeof useCase$ = tag.call(useCase$, 'useCases/numbers/clear')
-
-const _clear = (
-  di: {
-    clearNumbers: typeof clearNumbers
-    clear$: typeof clear$
-  }
-) => {
-  di.clear$
-    .do(di.clearNumbers)
-    .subscribe()
-
-  return () => di.clear$.next()
+interface DI {
+  clearNumbers: typeof clearNumbers
 }
 
-// The initialization can be in separate file, to prevent side effects during units tests
-export const clear = _clear({ clear$, clearNumbers })
+export const clearNumberUseCase = createUseCase<DI>('numbers/clear', (intents$, di) =>
+  intents$
+    .pipe(
+      filter(intent => intent.name === CLEAR_NUMBERS_INTENT),
+      tap(di.clearNumbers)
+    )
+)

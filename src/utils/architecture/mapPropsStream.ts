@@ -1,7 +1,7 @@
-import rxjsConfig from 'recompose/rxjsObservableConfig'
-import { mapPropsStreamWithConfig } from 'recompose'
-import { Observable } from 'rxjs/Observable'
 import { Component, ComponentClass } from 'react'
+import { mapPropsStreamWithConfig } from 'recompose'
+import rxjsConfig from 'recompose/rxjsObservableConfig'
+import { Observable } from 'rxjs/Observable'
 import { FromObservable } from 'rxjs/observable/FromObservable'
 
 // Types in recompose are wrong, you should get Observable in enhancer

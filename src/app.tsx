@@ -16,7 +16,6 @@ document.body.appendChild(root)
 const renderApp = () => render(<App />, root)
 renderApp()
 
-// Webpack Hot Module Replacement API
 if (module.hot) {
   module.hot.dispose(() => {
     root.parentNode!.removeChild(root)

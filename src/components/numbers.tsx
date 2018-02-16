@@ -2,10 +2,9 @@ import * as React from 'react'
 import { Component, ComponentClass } from 'react'
 import { compose, withStateHandlers } from 'recompose'
 
-import { numbers$, NumbersState } from '../state/numbers'
-import { clear } from '../useCases/numbers/clear'
-import { setLengthOfNumbers } from '../useCases/numbers/setLength'
-import { mapPropsStream } from '../utils/architecture/mapPropsStream'
+import { numbers$, NumbersState } from 'state/numbers'
+import { clearNumbers, setNumberLength } from 'intents/numbers'
+import { mapPropsStream } from 'utils/architecture/mapPropsStream'
 
 // Types for component
 interface FromGlobalState {
@@ -22,8 +21,8 @@ type Props = FromGlobalState & State
 // View
 const NumbersView: React.StatelessComponent<Props> = props => (
   <div>
-    <button onClick={clear}>clear</button>
-    <button onClick={() => setLengthOfNumbers(props.lengthOfArray)}>set</button>
+    <button onClick={clearNumbers}>clear</button>
+    <button onClick={() => setNumberLength(props.lengthOfArray)}>set</button>
     <input
       type="number"
       onChange={e => props.updateLengthOfArray(parseInt(e.currentTarget.value))}

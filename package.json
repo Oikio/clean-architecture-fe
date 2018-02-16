@@ -5,7 +5,8 @@
   "main": "dist/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel src/assets/index.html"
+    "dev": "parcel src/assets/index.html",
+    "build": "parcel build src/assets/index.html"
   },
   "author": "Oikio",
   "license": "ISC",
@@ -27,6 +28,8 @@
     "rxjs-spy": "^6.1.0"
   },
   "devDependencies": {
+    "parcel-bundler": "^1.6.1",
+    "parcel-plugin-typescript": "^0.6.0",
     "typescript": "^2.7.1"
   }
 }

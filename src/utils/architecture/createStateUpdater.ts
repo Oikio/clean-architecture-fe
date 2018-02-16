@@ -1,9 +1,11 @@
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject } from 'rxjs/BehaviorSubject'
 
 interface Arity1Updater<T> { (state: T): T }
 interface Arity2Updater<T, U> { (state: T, payload: U): T }
+
 const isArity1 = (fn: Function): fn is Arity1Updater<any> => fn.length == 1
 const isArity2 = (fn: Function): fn is Arity2Updater<any, any> => fn.length == 2
+
 export function createStateUpdater<T>(fn: (state: T) => T, state$: BehaviorSubject<T>): () => void
 export function createStateUpdater<T, U>(fn: Arity1Updater<T> | Arity2Updater<T, U>, state$: BehaviorSubject<T>): (payload: U) => void
 export function createStateUpdater<T, U>(fn: Arity1Updater<T> | Arity2Updater<T, U>, state$: BehaviorSubject<T>) {

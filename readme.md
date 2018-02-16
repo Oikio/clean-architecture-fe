@@ -39,10 +39,13 @@ Gateways, services and utils represent everything else.
 Types are mess right now
 
 # TODO:  
-Try to use just modules from react, recompose and rxjs to minify bundle, test build version and how long does it take to evaluate js onload  
-Add proper logging tools
-Add state, usCases and enhancers factories
-Decide how dependant useCases should work with each other
+Fix HMR with RxJS  
+Decide about namings (stateUpdater, intent and useCase should be devided)  
+Observable type are wrong (they have all operators in types), fidn the solution  
+Decide how flow of useCases, computedState, reactiveRules will work  
+Add proper logging tools  
+Add state, usCases and enhancers factories  
+Decide how dependant useCases should work with each other  
 Think about combined state streams without business logic  
 Create a real simple app (form, filtering, complex state)  
 Add hydration of state example  
