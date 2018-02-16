@@ -20,22 +20,30 @@ Dispacther provides dispatch method for intents
 # Intents
 Intents are dispatching events to Dispatcher  
 They are the only way to update useCases and can be used in top layer of application (in Components, Services, Router and etc)
+Intents only update related useCases
+If you have a case for parallel useCases, then group all of them under specific domain  
 
 # UseCases
-UseCases are streams subscribed to Dispatcher
+UseCases are streams subscribed to Dispatcher  
 UseCases should contain just business logic.  
 UseCases should know nothing about outer scope, but contracts.  
+UseCases can invoke intents, but try to keep it inside one domain of useCases  
 If you want to use libraries like validation, ajax and so on inside useCases, use, but treat them as contracts then.  
 
 
 # Components
 Components can only use intents to interact with outer scope.  
-Outer knowledge should only come from state or computedState steams
+Outer knowledge should only come from state or computedState steams  
 Local state is appreciated especially if it's related to view.  
-Components can be from any library, I will use React, but it's an implementation detail
-Reusable components should be in components folder, routes in routes folder
+Components can be from any library, I will use React, but it's an implementation detail  
+Reusable components should be in components folder, routes in routes folder  
 
-Gateways, services and utils represent everything else.  
+# Gateways, services and etc.
+Should only be invoked with in useCases
+Can create intents to invoke useCases
+
+# Utils
+Pure functions, which can be grouped and used across the project
 
 # TODO:  
 Fix HMR for RxJS  

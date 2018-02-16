@@ -15,7 +15,7 @@ export const setNumberLengthIntent = createIntent<number>(SET_NUMBERS_LENGTH_INT
 export const setLengthOfNumberUseCase = createUseCase<DI, number>('numbers/setLength', (intents$, di) =>
   intents$
     .pipe(
-      filter(intent => intent.name === SET_NUMBERS_LENGTH_INTENT),
+      filter(intent => intent.type === SET_NUMBERS_LENGTH_INTENT),
       map(intent => createNumbersArrOfLength(intent.payload)),
       tap(di.updateNumbers)
     )

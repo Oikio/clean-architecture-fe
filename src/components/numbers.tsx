@@ -57,24 +57,4 @@ const enhance = compose<Props, {}>(
   )
 )
 
-
-// const enhance = compose<Props, {}>(
-//   mapPropsStream<FromGlobalState>(props$ =>
-//     props$.combineLatest(numbers$, (props, numbers) => {
-//       return {
-//         ...props,
-//         numbers
-//       }
-//     })
-//   ),
-//   withStateHandlers(
-//     {
-//       lengthOfArray: 1
-//     }, {
-//       updateLengthOfArray: props => (number: number) => ({
-//         lengthOfArray: number
-//       })
-//     })
-// )
-
 export const Numbers = enhance(NumbersView)

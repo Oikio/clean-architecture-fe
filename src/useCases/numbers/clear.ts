@@ -14,7 +14,7 @@ interface DI {
 export const clearNumberUseCase = createUseCase<DI>('numbers/clear', (intents$, di) =>
   intents$
     .pipe(
-      filter(intent => intent.name === CLEAR_NUMBERS_INTENT),
+      filter(intent => intent.type === CLEAR_NUMBERS_INTENT),
       tap(di.clearNumbers)
     )
 )

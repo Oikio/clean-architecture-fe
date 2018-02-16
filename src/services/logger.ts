@@ -15,7 +15,7 @@ numbers$
   .subscribe()
 
 dispatcher$
-  .pipe(tap(({ name, payload }) => console.log(`Intent to ${name} with: `, payload)))
+  .pipe(tap(({ type, payload }) => console.log(`Intent to ${type} with: `, payload)))
   .subscribe()
 
 const spy = create()
