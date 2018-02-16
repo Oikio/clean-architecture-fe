@@ -1,7 +1,7 @@
 import { Subject } from 'rxjs'
 import { tag } from 'rxjs-spy/operator/tag'
 
-import { setNumbers } from '../../state/numbers'
+import { updateNumbers } from '../../state/numbers'
 import { createNumbersArrOfLength } from '../../utils/createNumbersArrOfLength'
 
 // Create useCase stream
@@ -12,12 +12,12 @@ const setLengthOfNumbers$ = tag.call(useCase$, 'useCases/numbers/setLength')
 const _setLengthOfNumbers = (
   di: {
     setLengthOfNumbers$: typeof setLengthOfNumbers$,
-    setNumbers: typeof setNumbers
+    updateNumbers: typeof updateNumbers
   }
 ) => {
   di.setLengthOfNumbers$
     .map(createNumbersArrOfLength)
-    .do(di.setNumbers)
+    .do(di.updateNumbers)
     .subscribe()
 
   return (n: number) => di.setLengthOfNumbers$.next(n)
@@ -25,4 +25,4 @@ const _setLengthOfNumbers = (
 
 // Initialize
 // The initialization can be in separate file, to prevent side effects during units tests
-export const setLengthOfNumbers = _setLengthOfNumbers({ setLengthOfNumbers$, setNumbers })
+export const setLengthOfNumbers = _setLengthOfNumbers({ setLengthOfNumbers$, updateNumbers })
