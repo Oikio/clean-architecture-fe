@@ -4,7 +4,7 @@ FRP and view libraries are just implementation details.
 TODO: diagram of project structure.  
 
 # To run app
-```npm install -g parcel-bundler```  
+```npm i ```  
 ```npm run dev```
 
 # State
