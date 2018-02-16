@@ -1,3 +1,11 @@
+# Concept
+UseCases - streams with business logic
+State is streams and can be updated only with stateUpdaters in useCases
+Action/Intent is an intent and the only way to update app? with DSL for useCases (see I in MVI)
+Computed state is consumable useCase stream
+Components are reactive and use Intents to produce changes outside their scope  
+...Todo...
+
 # To run app
 ```npm install -g parcel-bundler```  
 ```npm run dev```
@@ -11,11 +19,13 @@ Computed state should be in useCases, as long as it's part of business logic.
 If you want to use redux, see redux-observable, it's very promising library.
 
 # UseCases
-UseCases mostly are streams, but you are not obliged decide on type of useCase.  
+UseCases are reactive streams
 UseCases should contain just business logic.  
 UseCases always return streams.  
 UseCases should know nothing about outer scope, but contracts.  
 If you want to use libraries like validation, ajax and so on inside useCases, use, but treat them as contracts then.  
+
+#Actions
 
 # Components
 Components can only use useCases to interact with outer scope.  
@@ -29,7 +39,6 @@ Gateways, services and utils represent everything else.
 Types are mess right now
 
 # TODO:  
-Important: See if pushing to Cells really the solution, maybe we can use some kind of flow?
 Try to use just modules from react, recompose and rxjs to minify bundle, test build version and how long does it take to evaluate js onload  
 Add proper logging tools
 Add state, usCases and enhancers factories
