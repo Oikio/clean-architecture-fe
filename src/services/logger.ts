@@ -7,12 +7,16 @@ import { dispatcher$ } from '../dispatcher';
 
 // TODO: add logging for state and dispatcher
 // console.log(numbers$.operator.tag)
-numbers$.pipe(
-  combineLatest([]),
-  tap((state) => console.log('stateIs: ', state))
-).subscribe()
+numbers$
+  .pipe(
+    combineLatest([]),
+    tap((state) => console.log('stateIs: ', state))
+  )
+  .subscribe()
 
-dispatcher$.pipe(tap(({ name, payload }) => console.log(`Intent to ${name} with: `, payload)))
+dispatcher$
+  .pipe(tap(({ name, payload }) => console.log(`Intent to ${name} with: `, payload)))
+  .subscribe()
 
 const spy = create()
 spy.log()
