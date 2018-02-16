@@ -9,3 +9,9 @@ Observable.combineLatest([numbers$]).do(console.log).subscribe()
 
 const spy = create()
 spy.log()
+
+if (module.hot) {
+  module.hot.dispose(() => {
+    spy.teardown()
+  })
+}
