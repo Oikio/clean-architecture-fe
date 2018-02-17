@@ -1,17 +1,24 @@
 import { evenNumbers$, EvenNumbersState } from 'computedState/evenNumbers'
 import * as React from 'react'
 import { Component, ComponentClass } from 'react'
-import { compose, withStateHandlers } from 'recompose'
+import { compose, withProps, withStateHandlers } from 'recompose'
 import { combineLatest } from 'rxjs/operators'
 import { numbers$, NumbersState } from 'state/numbers'
 import { clearNumbersIntent } from 'useCases/numbers/clear'
 import { setNumberLengthIntent } from 'useCases/numbers/setLength'
 import { mapPropsStream } from 'utils/architecture/mapPropsStream'
 
+import { NumbersView } from './View'
+
 // Types for component
-interface FromGlobalState {
+interface WithGlobalState {
   numbers: NumbersState
   evenNumbers: EvenNumbersState
+}
+
+interface WithIntents {
+  setNumberLengthIntent: typeof setNumberLengthIntent
+  clearNumbersIntent: typeof clearNumbersIntent
 }
 
 interface State {
@@ -19,24 +26,10 @@ interface State {
   updateLengthOfArray: (number: number) => void
 }
 
-type Props = FromGlobalState & State
-
-// View
-const NumbersView: React.StatelessComponent<Props> = props =>
-  <div>
-    <button onClick={clearNumbersIntent}>clear</button>
-    <button onClick={() => setNumberLengthIntent(props.lengthOfArray)}>set</button>
-    <input
-      type="number"
-      onChange={e => props.updateLengthOfArray(parseInt(e.currentTarget.value, 10))}
-      value={props.lengthOfArray}
-    />
-    <div>numbers: {props.numbers.join(', ')}!</div>
-    <div>evenNumbers: {props.evenNumbers.join(', ')}!</div>
-  </div>
+export type Props = WithGlobalState & WithIntents & State
 
 const enhance = compose<Props, {}>(
-  mapPropsStream<FromGlobalState>(props$ =>
+  mapPropsStream<WithGlobalState>(props$ =>
     props$.pipe(
       combineLatest(numbers$, evenNumbers$, (props, numbers, evenNumbers) => ({
         ...props,
@@ -45,10 +38,9 @@ const enhance = compose<Props, {}>(
       }))
     )
   ),
+  withProps({ setNumberLengthIntent, clearNumbersIntent }),
   withStateHandlers(
-    {
-      lengthOfArray: 1
-    },
+    { lengthOfArray: 1 },
     {
       updateLengthOfArray: props => (number: number) => ({
         lengthOfArray: number
