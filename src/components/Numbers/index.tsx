@@ -1,12 +1,12 @@
 import { evenNumbers$, EvenNumbersState } from 'computedState/evenNumbers'
 import * as React from 'react'
 import { Component, ComponentClass } from 'react'
-import { compose, withProps, withStateHandlers } from 'recompose'
+import { compose, withStateHandlers } from 'recompose'
 import { combineLatest } from 'rxjs/operators'
 import { numbers$, NumbersState } from 'state/numbers'
 import { clearNumbersIntent } from 'useCases/numbers/clear'
 import { setNumberLengthIntent } from 'useCases/numbers/setLength'
-import { mapPropsStream } from 'utils/architecture/mapPropsStream'
+import { withGlobalStateAndIntents } from 'utils/architecture/componentEnhancers'
 
 import { NumbersView } from './View'
 
@@ -29,16 +29,16 @@ interface State {
 export type Props = WithGlobalState & WithIntents & State
 
 const enhance = compose<Props, {}>(
-  mapPropsStream<WithGlobalState>(props$ =>
-    props$.pipe(
+  withGlobalStateAndIntents<{}, WithGlobalState, WithIntents>(
+    props$ => props$.pipe(
       combineLatest(numbers$, evenNumbers$, (props, numbers, evenNumbers) => ({
         ...props,
         numbers,
         evenNumbers
       }))
-    )
+    ),
+    { setNumberLengthIntent, clearNumbersIntent }
   ),
-  withProps({ setNumberLengthIntent, clearNumbersIntent }),
   withStateHandlers(
     { lengthOfArray: 1 },
     {
