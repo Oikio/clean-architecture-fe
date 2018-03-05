@@ -46,9 +46,8 @@ Can create intents to invoke useCases
 Pure functions, which can be grouped and used across the project
 
 # TODO:  
+Add proper logging tools  (Fix issue with double dispatching?)
 Fix HMR for RxJS  
-Decide about namings (stateUpdater, intent and useCase should be devided)  
-Add proper logging tools  
 Add state, usCases and enhancers factories  
 Decide how dependant useCases should work with each other  
 Think about combined state streams without business logic  

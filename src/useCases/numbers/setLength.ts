@@ -9,13 +9,13 @@ interface DI {
   updateNumbers: typeof updateNumbers
 }
 
-const SET_NUMBERS_LENGTH_INTENT = 'SET_NUMBERS_LENGTH_INTENT'
-export const setNumberLengthIntent = createIntent<number>(SET_NUMBERS_LENGTH_INTENT, dispatch)
+const SET_NUMBERS_LENGTH = 'SET_NUMBERS_LENGTH'
+export const setNumberLengthIntent = createIntent<number>(SET_NUMBERS_LENGTH, dispatch)
 
 export const setLengthOfNumberUseCase = createUseCase<DI, number>('numbers/setLength', (intents$, di) =>
   intents$
     .pipe(
-      filter(intent => intent.type === SET_NUMBERS_LENGTH_INTENT),
+      filter(intent => intent.type === SET_NUMBERS_LENGTH),
       map(intent => createNumbersArrOfLength(intent.payload)),
       tap(di.updateNumbers)
     )

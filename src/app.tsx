@@ -3,8 +3,6 @@ import { render } from 'react-dom'
 
 import { Numbers } from './components/Numbers'
 
-
-// App
 const AppView: React.StatelessComponent<any> = props => (
   <div>
     <Numbers />
@@ -16,6 +14,7 @@ document.body.appendChild(root)
 const renderApp = () => render(<App />, root)
 renderApp()
 
+// HMR
 if (module.hot) {
   module.hot.dispose(() => {
     root.parentNode!.removeChild(root)
