@@ -4,11 +4,11 @@ import { Component, ComponentClass } from 'react'
 import { compose, withStateHandlers } from 'recompose'
 import { combineLatest } from 'rxjs/operators'
 import { numbers$, NumbersState } from 'state/numbers'
-import { clearNumbersIntent } from 'useCases/numbers/clear'
-import { setNumberLengthIntent } from 'useCases/numbers/setLength'
+import { clearNumbersIntent } from 'useCases/numbers/clearNumbersUseCase'
+import { setNumberLengthIntent } from 'useCases/numbers/setLengthOfNumberUseCase'
 import { withGlobalStateAndIntents } from 'utils/architecture/componentEnhancers'
 
-import { NumbersView } from './View'
+import { NumbersView } from './NumbersView'
 
 // Types for component
 interface WithGlobalState {
