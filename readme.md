@@ -46,6 +46,7 @@ Can create intents to invoke useCases
 Pure functions, which can be grouped and used across the project
 
 # TODO:  
+? Add tools for useCases filtering
 Add proper logging tools  (Fix issue with double dispatching?)
 Fix HMR for RxJS  
 Add state, usCases and enhancers factories  
