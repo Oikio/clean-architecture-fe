@@ -15,7 +15,7 @@ Selectors are optional, you might not need them because you just use streams whi
 
 # Dispatcher
 Dispatcher is a stream of intents for useCases  
-Dispacther provides dispatch method for intents  
+Dispatcher provides dispatch method for intents  
 
 # Intents
 Intents are dispatching events to Dispatcher  
