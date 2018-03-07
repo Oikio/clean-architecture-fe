@@ -1,3 +1,3 @@
+import './services/logger'
 import 'useCases'
-import 'services/logger'
 import 'app'

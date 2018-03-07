@@ -24,4 +24,5 @@ export function createUseCase
   ) {
   return (intents$: Observable<Intent>, di?: DI) =>
     useCase(intents$.pipe(tag(`useCase/${name}`)), di || {} as DI).subscribe()
+
 }

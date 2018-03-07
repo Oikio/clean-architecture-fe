@@ -9,6 +9,9 @@
     "target": "es2015",
     "module": "es2015",
     "moduleResolution": "node",
-    "jsx": "react"
+    "jsx": "react",
+    "types": [
+      "node"
+    ]
   }
 }

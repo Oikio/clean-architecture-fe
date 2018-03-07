@@ -26,6 +26,8 @@
     ],
     "callable-types": false,
     "ban-types": false,
-    "ordered-imports": false
+    "ordered-imports": false,
+    "array-type": false,
+    "no-var-requires": false
   }
 }
