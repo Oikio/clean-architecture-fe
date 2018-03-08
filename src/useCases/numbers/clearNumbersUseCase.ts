@@ -1,5 +1,5 @@
 import { dispatch } from 'dispatcher'
-import { filter, tap } from 'rxjs/operators'
+import { tap } from 'rxjs/operators/tap'
 import { clearNumbers as clearNumbers } from 'state/numbers'
 import { createIntent } from 'utils/architecture/createIntent'
 import { createUseCase } from 'utils/architecture/createUseCase'
@@ -11,10 +11,12 @@ interface DI {
   clearNumbers: typeof clearNumbers
 }
 
-export const clearNumberUseCase = createUseCase<DI>('numbers/clear', (intents$, di) =>
-  intents$
-    .pipe(
-      filter(intent => intent.type === CLEAR_NUMBERS),
-      tap(di.clearNumbers)
-    )
+export const clearNumberUseCase = createUseCase<DI>('numbers/clear',
+  (intents$, di) =>
+    intents$
+      .pipe(
+        tap(di.clearNumbers),
+    ),
+
+  CLEAR_NUMBERS
 )

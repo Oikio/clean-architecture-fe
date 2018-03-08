@@ -5,7 +5,7 @@ import { compose, withStateHandlers } from 'recompose'
 import { combineLatest } from 'rxjs/operators'
 import { numbers$, NumbersState } from 'state/numbers'
 import { clearNumbersIntent } from 'useCases/numbers/clearNumbersUseCase'
-import { setNumberLengthIntent } from 'useCases/numbers/setLengthOfNumberUseCase'
+import { setLengthOfNumbersIntent } from 'useCases/numbers/setLengthOfNumberUseCase'
 import { withGlobalStateAndIntents } from 'utils/architecture/componentEnhancers'
 
 import { NumbersView } from './NumbersView'
@@ -17,7 +17,7 @@ interface WithGlobalState {
 }
 
 interface WithIntents {
-  setNumberLengthIntent: typeof setNumberLengthIntent
+  setLengthOfNumbersIntent: typeof setLengthOfNumbersIntent
   clearNumbersIntent: typeof clearNumbersIntent
 }
 
@@ -37,7 +37,7 @@ const enhance = compose<Props, {}>(
         evenNumbers
       }))
     ),
-    { setNumberLengthIntent, clearNumbersIntent }
+    { setLengthOfNumbersIntent, clearNumbersIntent }
   ),
   withStateHandlers(
     { lengthOfArray: 1 },

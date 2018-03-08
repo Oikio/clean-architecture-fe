@@ -1,15 +1,19 @@
 import { numbers$ } from 'state/numbers'
-import { createLogger } from 'utils/architecture/createLogger'
+import { createStateLogger } from 'utils/architecture/loggers/createStateLogger'
+import { createStreamsSpy } from 'utils/architecture/loggers/createStreamsSpy'
 
 if (process.env.NODE_ENV === 'development') {
-  const logger = createLogger({
-    numbers: numbers$
+  const logger = createStateLogger({
+    numbers$
   })
+
+  const spy = createStreamsSpy()
 
   // HMR
   if (module.hot) {
-    module.hot.accept(() => {
-      logger.spy.teardown()
+    module.hot.dispose(() => {
+      logger.unsubscribe()
+      spy.teardown()
     })
   }
 }

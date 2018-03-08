@@ -6,6 +6,7 @@
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
+    "noUnusedLocals": true,
     "target": "es2015",
     "module": "es2015",
     "moduleResolution": "node",

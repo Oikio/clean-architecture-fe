@@ -1,5 +1,3 @@
-import { Observable } from 'rxjs/Observable'
-
 export interface Intent<T = any> { type: string, payload: T }
 
 export function createIntent(type: string, dispatch: (intent: Intent) => void): () => void
