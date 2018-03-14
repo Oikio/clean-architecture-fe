@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Props } from '.'
 
-export const NumbersView: React.StatelessComponent<Props> = ({
+export const NumbersView: React.ComponentType<Props> = ({
   clearNumbersIntent,
   evenNumbers,
   lengthOfArray,
