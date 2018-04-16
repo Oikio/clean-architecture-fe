@@ -47,8 +47,8 @@ Can use Intents to invoke useCases
 Pure functions, which can be grouped and used across the project
 
 # TODO:  
-! Fix circular dependency for state streams with rxjs-spy
-? Add tools for useCases filtering
+! Fix circular dependency for state streams with rxjs-spy  
+? Add tools for useCases filtering  
 Add proper logging tools  (Fix issue with double dispatching?)
 Fix HMR for RxJS and react (https://github.com/gaearon/react-hot-loader  ?)
 Add state, usCases and enhancers factories  

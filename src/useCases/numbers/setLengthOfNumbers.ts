@@ -1,5 +1,5 @@
 import { dispatch } from 'dispatcher'
-import { filter, map, tap } from 'rxjs/operators'
+import { map, tap } from 'rxjs/operators'
 import { updateNumbers } from 'state/numbers'
 import { createIntent } from 'utils/architecture/createIntent'
 import { createUseCase } from 'utils/architecture/createUseCase'
@@ -12,7 +12,7 @@ interface DI {
 const SET_LENGTH_OF_NUMBERS = 'SET_LENGTH_OF_NUMBERS'
 export const setLengthOfNumbersIntent = createIntent<number>(SET_LENGTH_OF_NUMBERS, dispatch)
 
-export const setLengthOfNumberUseCase = createUseCase<DI, number>('numbers/setLength',
+export const setLengthOfNumbersUseCase = createUseCase<DI, number>('numbers/setLength',
   (intents$, di) =>
     intents$
       .pipe(

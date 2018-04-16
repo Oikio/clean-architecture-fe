@@ -1,8 +1,8 @@
 import { dispatcher$ } from 'dispatcher'
 import { clearNumbers, updateNumbers } from 'state/numbers'
 
-import { clearNumberUseCase } from './clearNumbersUseCase'
-import { setLengthOfNumberUseCase } from './setLengthOfNumberUseCase'
+import { clearNumberUseCase } from './clearNumbers'
+import { setLengthOfNumbersUseCase } from './setLengthOfNumbers'
 
 clearNumberUseCase(dispatcher$, { clearNumbers })
-setLengthOfNumberUseCase(dispatcher$, { updateNumbers })
+setLengthOfNumbersUseCase(dispatcher$, { updateNumbers })

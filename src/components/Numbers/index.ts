@@ -1,11 +1,9 @@
 import { evenNumbers$, EvenNumbersState } from 'computedState/evenNumbers'
-import * as React from 'react'
-import { Component, ComponentClass } from 'react'
 import { compose, withStateHandlers } from 'recompose'
 import { combineLatest } from 'rxjs/operators'
 import { numbers$, NumbersState } from 'state/numbers'
-import { clearNumbersIntent } from 'useCases/numbers/clearNumbersUseCase'
-import { setLengthOfNumbersIntent } from 'useCases/numbers/setLengthOfNumberUseCase'
+import { clearNumbersIntent } from 'useCases/numbers/clearNumbers'
+import { setLengthOfNumbersIntent } from 'useCases/numbers/setLengthOfNumbers'
 import { withGlobalStateAndIntents } from 'utils/architecture/componentEnhancers'
 
 import { NumbersView } from './NumbersView'
