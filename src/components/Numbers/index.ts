@@ -1,15 +1,15 @@
-import { evenNumbers$, EvenNumbersState } from 'computedState/evenNumbers'
+import { EvenNumbersState, EvenNumbersStream } from 'computedState/evenNumbers'
 import { compose, withStateHandlers } from 'recompose'
 import { combineLatest } from 'rxjs/operators'
-import { numbers$, NumbersState } from 'state/numbers'
+import { NumbersState, numbersStream } from 'state/numbers'
 import { clearNumbersIntent } from 'useCases/numbers/clearNumbers'
 import { setLengthOfNumbersIntent } from 'useCases/numbers/setLengthOfNumbers'
-import { withGlobalStateAndIntents } from 'utils/architecture/componentEnhancers'
+import { withStateAndIntents } from 'utils/architecture/componentEnhancers'
 
 import { NumbersView } from './NumbersView'
 
 // Types for component
-interface WithGlobalState {
+interface WithState {
   numbers: NumbersState
   evenNumbers: EvenNumbersState
 }
@@ -24,12 +24,12 @@ interface State {
   updateLengthOfArray: (number: number) => void
 }
 
-export type Props = WithGlobalState & WithIntents & State
+export type Props = WithState & WithIntents & State
 
 const enhance = compose<Props, {}>(
-  withGlobalStateAndIntents<{}, WithGlobalState, WithIntents>(
-    props$ => props$.pipe(
-      combineLatest(numbers$, evenNumbers$, (props, numbers, evenNumbers) => ({
+  withStateAndIntents<{}, WithState, WithIntents>(
+    propsStream => propsStream.pipe(
+      combineLatest(numbersStream, EvenNumbersStream, (props, numbers, evenNumbers) => ({
         ...props,
         numbers,
         evenNumbers

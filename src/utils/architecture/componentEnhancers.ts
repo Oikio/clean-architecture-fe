@@ -1,11 +1,10 @@
 import { compose, withProps } from 'recompose'
-import { Observable } from 'rxjs/observable'
-import { FromObservable } from 'rxjs/observable/FromObservable'
+import { Observable } from 'rxjs'
 
 import { mapPropsStream } from './mapPropsStream'
 
-export const withGlobalStateAndIntents = <Props = {}, State = {}, Intents = {}>(
-  stream?: (props$: FromObservable<Props>) => Observable<State>,
+export const withStateAndIntents = <Props = {}, State = {}, Intents = {}>(
+  stream?: (props: Observable<Props>) => Observable<State>,
   intents?: Intents
 ) =>
   compose<Props, Props & State & Intents>(

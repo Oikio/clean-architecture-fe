@@ -1,10 +1,8 @@
 import { map } from 'rxjs/operators'
-import { numbers$ } from 'state/numbers'
+import { numbersStream } from 'state/numbers'
 
 export type EvenNumbersState = number[]
-export const evenNumbers$ = numbers$
+export const EvenNumbersStream = numbersStream
   .pipe(
-    map(
-      arr => arr.filter(n => n % 2 === 0)
-    )
+    map(arr => arr.filter(n => n % 2 === 0))
   )

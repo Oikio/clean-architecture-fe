@@ -1,6 +1,5 @@
-import { Observable } from 'rxjs/Observable'
-import { combineLatest } from 'rxjs/observable/combineLatest'
-import { tap } from 'rxjs/operators/tap'
+import { combineLatest, Observable } from 'rxjs'
+import { tap } from 'rxjs/operators'
 
 export const createStateLogger = <T= { [key: string]: Observable<any> }>(stateMap: T) => {
   const stateNames = Object.keys(stateMap)
