@@ -47,11 +47,9 @@ Can use Intents to invoke useCases
 Pure functions, which can be grouped and used across the project
 
 # TODO:  
-! Update recompose for RxJS6 ASAP: https://github.com/acdlite/recompose/pull/660  
-? Add tools for useCases filtering  
-Add proper logging tools  (Fix issue with double dispatching?)  
-Fix HMR for RxJS and react (https://github.com/gaearon/react-hot-loader  ?)
-Add state, usCases and enhancers factories  
+! Update recompose for RxJS6 ASAP: https://github.com/acdlite/recompose/pull/660 (fix for now to use "fromESObservable: _rxjs2.from," in node_modules/recompose/rxjsObservableConfig.js)  
+! Fix HMR for RxJS and react. Waiting for update for react-hot-loader  
+Add state, useCases and enhancers factories  
 Decide how dependant useCases should work with each other  
 Think about combined state streams without business logic  
 Create a real simple app (form, filtering, complex state)  
@@ -61,3 +59,4 @@ Add computed state example
 Add tests, see how they should work with useCases  
 Add cancelable useCases  
 Create more complex app, maybe just develop a list of howtos.  
+? Add tools for useCases filtering  
