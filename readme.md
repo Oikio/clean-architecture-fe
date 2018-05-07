@@ -49,9 +49,6 @@ Pure functions, which can be grouped and used across the project
 # TODO:  
 ! Update recompose for RxJS6 ASAP: https://github.com/acdlite/recompose/pull/660 (fix for now to use "fromESObservable: _rxjs2.from," in node_modules/recompose/rxjsObservableConfig.js)  
 ! Fix HMR for RxJS and react. Waiting for update for react-hot-loader  
-Add state, useCases and enhancers factories  
-Decide how dependant useCases should work with each other  
-Think about combined state streams without business logic  
 Create a real simple app (form, filtering, complex state)  
 Add hydration of state example  
 Add time travel example  
