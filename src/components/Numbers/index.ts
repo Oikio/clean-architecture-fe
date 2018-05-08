@@ -1,4 +1,4 @@
-import { EvenNumbersState, EvenNumbersStream } from 'computedState/evenNumbers'
+import { EvenNumbersState, evenNumbersStream } from 'computedState/evenNumbers'
 import { compose, withStateHandlers } from 'recompose'
 import { combineLatest } from 'rxjs/operators'
 import { NumbersState, numbersStream } from 'state/numbers'
@@ -29,7 +29,7 @@ export type Props = WithState & WithIntents & State
 const enhance = compose<Props, {}>(
   withStateAndIntents<{}, WithState, WithIntents>(
     propsStream => propsStream.pipe(
-      combineLatest(numbersStream, EvenNumbersStream, (props, numbers, evenNumbers) => ({
+      combineLatest(numbersStream, evenNumbersStream, (props, numbers, evenNumbers) => ({
         ...props,
         numbers,
         evenNumbers
