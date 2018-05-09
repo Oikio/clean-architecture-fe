@@ -1,5 +1,4 @@
 import { Observable, Subscription } from 'rxjs'
-import { tag } from 'rxjs-spy/operators/tag'
 import { filter } from 'rxjs/operators'
 
 import { Intent } from './createIntent'
@@ -26,11 +25,20 @@ export function createUseCase
     intentType?: string
   ) {
   return (intents: Observable<Intent>, di: DI) => {
-    intents.pipe(filter((intent: Intent) => intent.type === intentType), tag(`useCases/${name}`)).subscribe()
+    intents
+      .pipe(
+        filter((intent: Intent) => intent.type === intentType)
+      )
+      .subscribe()
     return intentType
       ? useCase(
-        intents.pipe(filter((intent: Intent) => intent.type === intentType)), di || {}
-      ).subscribe()
+        intents
+          .pipe(
+            filter((intent: Intent) => intent.type === intentType)
+          ),
+        di || {}
+      )
+        .subscribe()
       : useCase(intents, di || {}).subscribe()
   }
 }

@@ -22,7 +22,6 @@ renderApp()
 // hot(module)(App)
 if (module.hot) {
   module.hot.dispose(() => {
-    console.log('@')
     if (root.parentNode) root.parentNode.removeChild(root)
   })
 }

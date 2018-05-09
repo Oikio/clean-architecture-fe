@@ -1,13 +1,19 @@
 import { combineLatest, identity, Observable } from 'rxjs'
-import { create } from 'rxjs-spy/spy-factory'
 import { first, map, tap, withLatestFrom } from 'rxjs/operators'
 
 /**
  * Redux devtools connector
  */
-export const devtools = process.env.NODE_ENV === 'development' && (window as any).__REDUX_DEVTOOLS_EXTENSION__
+const devtools = process.env.NODE_ENV === 'development' && (window as any).__REDUX_DEVTOOLS_EXTENSION__
   ? (window as any).__REDUX_DEVTOOLS_EXTENSION__.connect()
   : { init: () => { }, send: () => { } } // tslint:disable-line
+
+
+const logCurrentState = (currentState: any) => {
+  console.group('INIT: ')
+  console.log(currentState)
+  console.groupEnd()
+}
 
 /**
  * By default connects to redux devtools
@@ -16,16 +22,10 @@ export const devtools = process.env.NODE_ENV === 'development' && (window as any
  * @param ops
  */
 export const createLogger = <T= { [key: string]: Observable<any> }>(
-  stateMap: T,
   dispatcher: Observable<any>,
-  ops: { log?: boolean, spy?: boolean } = {}
+  stateMap: T,
+  ops: { log?: boolean } = {}
 ) => {
-
-  if (ops.spy) {
-    setTimeout(() => {
-      const spy = create()
-    }, 100);
-  }
 
   const stateNames = Object.keys(stateMap)
   const stateObservablesArr: Observable<any>[] = stateNames.map(k => (stateMap as any)[k])
@@ -46,10 +46,20 @@ export const createLogger = <T= { [key: string]: Observable<any> }>(
       first(),
       tap(devtools.init),
       ops.log
+        ? tap(logCurrentState)
+        : identity
+    )
+    .subscribe()
+
+  const devtoolsLogger = dispatcher
+    .pipe(
+      withLatestFrom(state),
+      tap(([intent, currentState]) => devtools.send(intent, currentState)),
+      ops.log
         ? tap(
-          currentState => {
-            console.group('INIT: ')
-            console.log(currentState)
+          ([intent, currentState]) => {
+            console.group('INTENT: ')
+            console.log(intent, currentState)
             console.groupEnd()
           }
         )
@@ -57,23 +67,19 @@ export const createLogger = <T= { [key: string]: Observable<any> }>(
     )
     .subscribe()
 
-  const devtoolsLogger = dispatcher.pipe(
-    withLatestFrom(state),
-    tap(([intent, currentState]) => devtools.send(intent, currentState)),
-    ops.log
-      ? tap(
-        ([intent, currentState]) => {
-          console.group('INTENT: ')
-          console.log(intent, currentState)
-          console.groupEnd()
-        }
-      )
-      : identity
-  ).subscribe()
+  const terminate = () => {
+    devtoolsLogger.unsubscribe()
+  }
+
+  // HMR
+  if (module.hot) {
+    module.hot.dispose(() => {
+      terminate()
+    })
+  }
 
   return {
-    terminate: () => {
-      devtoolsLogger.unsubscribe()
-    }
+    terminate
   }
 }
+

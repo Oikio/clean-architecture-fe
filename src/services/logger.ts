@@ -3,19 +3,9 @@ import { createLogger } from 'utils/architecture/loggers/createLogger'
 
 import { dispatcher } from './dispatcher'
 
-const logger = createLogger(
-  {
-    numbers: numbersStream
-  },
+createLogger(
   dispatcher,
   {
-    log: true,
-    spy: true
+    numbers: numbersStream
   }
 )
-// HMR
-if (module.hot) {
-  module.hot.dispose(() => {
-    logger.terminate()
-  })
-}
