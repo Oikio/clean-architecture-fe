@@ -12,6 +12,7 @@ State as stream.
 StateUpdaters are dumb store updaters.  
 StateUpdaters should work only with their own Cell.  
 Selectors are optional, you might not need them because you just use streams which you need.  
+Selectors should be part of State.  
 
 # Dispatcher
 Dispatcher is a stream of intents for useCases  
@@ -50,6 +51,8 @@ Pure functions, which can be grouped and used across the project
 ! Update recompose for RxJS6 ASAP: https://github.com/acdlite/recompose/pull/660 (fix for now to use "fromESObservable: _rxjs2.from," in node_modules/recompose/rxjsObservableConfig.js)  
 ! Fix HMR for RxJS and react. Waiting for update for react-hot-loader  
 !? Connect state to redux dev-tools (fix spy and logger), see https://github.com/zalmoxisus/redux-devtools-extension/blob/master/docs/API/CreateStore.md
+Decide on where to put reactive state change (computedState or useCases)
+Take a look at distinctUntilChanged for state
 Create a real simple app (form, filtering, complex state)  
 Add hydration of state example  
 Add time travel example  
