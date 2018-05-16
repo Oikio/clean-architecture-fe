@@ -4,19 +4,19 @@ import { clearNumbers as clearNumbers } from 'state/numbers'
 import { createIntent } from 'utils/architecture/createIntent'
 import { createUseCase } from 'utils/architecture/createUseCase'
 
-const CLEAR_NUMBERS = 'CLEAR_NUMBERS'
-export const clearNumbersIntent = createIntent(CLEAR_NUMBERS, dispatch)
+const name = 'numbers/clear'
+
+export const clearNumbersIntent = createIntent(name, dispatch)
 
 interface DI {
   clearNumbers: typeof clearNumbers
 }
 
-export const clearNumberUseCase = createUseCase<DI>('numbers/clear',
+export const clearNumbersUseCase = createUseCase<DI>(name,
   (intents, di) =>
     intents
       .pipe(
-        tap(di.clearNumbers),
-    ),
-
-  CLEAR_NUMBERS
+        tap(di.clearNumbers)
+      ),
+  { hasIntent: true }
 )

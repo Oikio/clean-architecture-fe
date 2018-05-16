@@ -1,12 +1,12 @@
 import { Subject } from 'rxjs'
 
 import { Intent } from './createIntent'
-export const createDispatcher = () => {
-  const dispatcher = new Subject<Intent>()
+
+export const createDispatcher = <T = any>() => {
+  const dispatcher = new Subject<Intent<T>>()
   const stream = dispatcher.asObservable()
-  const dispatch = (intent: Intent) => dispatcher.next(intent)
-  dispatcher.pipe(
-  ).subscribe()
+  const dispatch = (intent: Intent<T>) => dispatcher.next(intent)
+  dispatcher.subscribe()
 
   return { dispatcher: stream, dispatch }
 }

@@ -13,6 +13,8 @@ StateUpdaters are dumb store updaters.
 StateUpdaters should work only with their own Cell.  
 Selectors are optional, you might not need them because you just use streams which you need.  
 Selectors should be part of State.  
+ComputedState (derivedState) should be just stateStream without stateUpdater 
+ComputedState should be simple, otherwise create useCase -> state pipeline
 
 # Dispatcher
 Dispatcher is a stream of intents for useCases  
@@ -26,7 +28,8 @@ One UseCase can has only one Intent
 
 # UseCases
 UseCases are streams, which might be subscribed to Dispatcher  
-UseCases can be reactive for anything provided in DI
+UseCases can be reactive for anything provided in DI (e.g. reaction on state change without dispatcher)
+?UseCases should dispatch action
 UseCases should contain just business logic.  
 UseCases should know nothing about outer scope, but contracts.  
 UseCases can invoke intents, but try to keep it inside one domain of useCases  
@@ -49,10 +52,7 @@ Pure functions, which can be grouped and used across the project
 
 # TODO:  
 ! Update recompose for RxJS6 ASAP: https://github.com/acdlite/recompose/pull/660 (fix for now to use "fromESObservable: _rxjs2.from," in node_modules/recompose/rxjsObservableConfig.js)  
-! Fix HMR for RxJS and react. Waiting for update for react-hot-loader  
-!? Connect state to redux dev-tools (fix spy and logger), see https://github.com/zalmoxisus/redux-devtools-extension/blob/master/docs/API/CreateStore.md
-Decide on where to put reactive state change (computedState or useCases)
-Take a look at distinctUntilChanged for state
+!? Fix HMR for RxJS
 Create a real simple app (form, filtering, complex state)  
 Add hydration of state example  
 Add time travel example  

@@ -1,44 +1,28 @@
-import { Observable, Subscription } from 'rxjs'
+import { identity, Observable } from 'rxjs'
 import { filter } from 'rxjs/operators'
 
 import { Intent } from './createIntent'
 
-
-export function createUseCase
-  <DI>(
-    name: string,
-    useCase: (intents: Observable<Intent>, di: DI) => Observable<any>,
-    intentType: string
-  ): (intents: Observable<Intent>, di: DI) => Subscription
-
-export function createUseCase
-  <DI, T = any>(
-    name: string,
-    useCase: (intents: Observable<Intent<T>>, di: DI) => Observable<any>,
-    intentType?: string
-  ): (intents: Observable<Intent>, di: DI) => Subscription
+interface Ops {
+  // If has intent, then intents would be filtered by the name of useCase,
+  // otherwise will dispatch action before each reaction
+  hasIntent?: boolean
+}
 
 export function createUseCase
   <DI, T = any>(
     name: string,
     useCase: (intents: Observable<Intent<T>>, di: DI) => Observable<any>,
-    intentType?: string
+    ops: Ops = { hasIntent: false }
   ) {
-  return (intents: Observable<Intent>, di: DI) => {
-    intents
-      .pipe(
-        filter((intent: Intent) => intent.type === intentType)
-      )
+  return (intents: Observable<Intent<T>>, di: DI) => {
+    return useCase(
+      intents
+        .pipe(
+          ops.hasIntent ? filter((intent: Intent) => intent.type === name) : identity
+        ),
+      di || {}
+    )
       .subscribe()
-    return intentType
-      ? useCase(
-        intents
-          .pipe(
-            filter((intent: Intent) => intent.type === intentType)
-          ),
-        di || {}
-      )
-        .subscribe()
-      : useCase(intents, di || {}).subscribe()
   }
 }

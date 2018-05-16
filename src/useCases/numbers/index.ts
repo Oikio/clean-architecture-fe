@@ -1,8 +1,11 @@
 import { dispatcher } from 'services/dispatcher'
-import { clearNumbers, updateNumbers } from 'state/numbers'
+import { clearNumbers, numbersStream, updateNumbers } from 'state/numbers'
+import { updateNumbersWarning } from 'state/numbersWarning'
 
-import { clearNumberUseCase } from './clearNumbers'
-import { setLengthOfNumbersUseCase } from './setLengthOfNumbers'
+import { clearNumbersUseCase } from './clear'
+import { setNumbersLengthUseCase } from './setLength'
+import { showNumbersWarningUseCase } from './showWarning'
 
-clearNumberUseCase(dispatcher, { clearNumbers })
-setLengthOfNumbersUseCase(dispatcher, { updateNumbers })
+clearNumbersUseCase(dispatcher, { clearNumbers })
+setNumbersLengthUseCase(dispatcher, { updateNumbers })
+showNumbersWarningUseCase(dispatcher, { numbersStream, updateNumbersWarning })

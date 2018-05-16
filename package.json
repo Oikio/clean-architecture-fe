@@ -19,9 +19,9 @@
     "ospec": "^1.4.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "react-hot-loader": "^4.1.2",
     "recompose": "^0.27.0",
-    "rxjs": "^6.1.0"
+    "rxjs": "^6.1.0",
+    "tachyons": "^4.9.1"
   },
   "devDependencies": {
     "parcel-bundler": "^1.8.1",

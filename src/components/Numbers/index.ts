@@ -1,50 +1,58 @@
-import { EvenNumbersState, evenNumbersStream } from 'computedState/evenNumbers'
 import { compose, withStateHandlers } from 'recompose'
 import { combineLatest } from 'rxjs/operators'
+import { EvenNumbersState, evenNumbersStream } from 'state/evenNumbers'
 import { NumbersState, numbersStream } from 'state/numbers'
-import { clearNumbersIntent } from 'useCases/numbers/clearNumbers'
-import { setLengthOfNumbersIntent } from 'useCases/numbers/setLengthOfNumbers'
+import { NumbersWarningState, numbersWarningStream } from 'state/numbersWarning'
+import { clearNumbersIntent } from 'useCases/numbers/clear'
+import { setNumbersLengthIntent } from 'useCases/numbers/setLength'
 import { withStateAndIntents } from 'utils/architecture/componentEnhancers'
 
 import { NumbersView } from './NumbersView'
 
-// Types for component
 interface WithState {
   numbers: NumbersState
   evenNumbers: EvenNumbersState
+  warning: NumbersWarningState
 }
 
 interface WithIntents {
-  setLengthOfNumbersIntent: typeof setLengthOfNumbersIntent
+  setNumbersLengthIntent: typeof setNumbersLengthIntent
   clearNumbersIntent: typeof clearNumbersIntent
 }
 
-interface State {
+interface WithLocalState {
   lengthOfArray: number
-  updateLengthOfArray: (number: number) => void
 }
 
-export type Props = WithState & WithIntents & State
+type WithHandlers = {
+  updateLengthOfArray: (number: number) => WithLocalState
+}
+
+export type Props = WithState & WithIntents & WithLocalState & WithHandlers
 
 const enhance = compose<Props, {}>(
+
   withStateAndIntents<{}, WithState, WithIntents>(
     propsStream => propsStream.pipe(
-      combineLatest(numbersStream, evenNumbersStream, (props, numbers, evenNumbers) => ({
+      combineLatest(numbersStream, evenNumbersStream, numbersWarningStream, (props, numbers, evenNumbers, warning) => ({
         ...props,
         numbers,
-        evenNumbers
+        evenNumbers,
+        warning
       }))
     ),
-    { setLengthOfNumbersIntent, clearNumbersIntent }
+    { setNumbersLengthIntent, clearNumbersIntent }
   ),
-  withStateHandlers(
+
+  withStateHandlers<WithLocalState, WithHandlers, WithState & WithIntents>(
     { lengthOfArray: 1 },
     {
-      updateLengthOfArray: props => (number: number) => ({
+      updateLengthOfArray: props => number => ({
         lengthOfArray: number
       })
     }
   )
+
 )
 
 export const Numbers = enhance(NumbersView)

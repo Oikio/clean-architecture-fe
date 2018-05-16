@@ -8,21 +8,19 @@ const isArity2 = (fn: Function): fn is Arity2Updater<any, any> => fn.length === 
 
 export function createStateUpdater<T>(
   fn: (state: T) => T,
-  state: BehaviorSubject<T>
+  cell: BehaviorSubject<T>
 ): () => void
-
 
 export function createStateUpdater<T, U>(
   fn: Arity1Updater<T> | Arity2Updater<T, U>,
-  state: BehaviorSubject<T>
+  cell: BehaviorSubject<T>
 ): (payload: U) => void
 
 export function createStateUpdater<T, U>(
   fn: Arity1Updater<T> | Arity2Updater<T, U>,
-  state: BehaviorSubject<T>
+  cell: BehaviorSubject<T>
 ) {
-  if (isArity1(fn)) return () => state.next(fn(state.getValue()))
-  // TODO: fix bug with "fn as Arity2Updater<T, U>", can't find roo cause
-  if (isArity2(fn)) return (payload: any) => state.next((fn as Arity2Updater<T, U>)(state.getValue(), payload))
+  if (isArity1(fn)) return () => cell.next(fn(cell.getValue()))
+  if (isArity2(fn)) return (payload: U) => cell.next((fn as Arity2Updater<T, U>)(cell.getValue(), payload))
   throw new Error('You must provide stateUpdater function with 1-2 arguments')
 }

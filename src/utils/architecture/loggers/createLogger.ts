@@ -1,5 +1,5 @@
 import { combineLatest, identity, Observable } from 'rxjs'
-import { first, map, tap, withLatestFrom } from 'rxjs/operators'
+import { map, tap, withLatestFrom } from 'rxjs/operators'
 
 /**
  * Redux devtools connector
@@ -10,7 +10,7 @@ const devtools = process.env.NODE_ENV === 'development' && (window as any).__RED
 
 
 const logCurrentState = (currentState: any) => {
-  console.group('INIT: ')
+  console.group('STATE: ')
   console.log(currentState)
   console.groupEnd()
 }
@@ -41,17 +41,17 @@ export const createLogger = <T= { [key: string]: Observable<any> }>(
     )
   )
 
-  state
+  const stateLogger = state
     .pipe(
-      first(),
-      tap(devtools.init),
+      tap(currentState => devtools.send('STATE_CHANGE', currentState)),
       ops.log
         ? tap(logCurrentState)
         : identity
+
     )
     .subscribe()
 
-  const devtoolsLogger = dispatcher
+  const useCasesLogger = dispatcher
     .pipe(
       withLatestFrom(state),
       tap(([intent, currentState]) => devtools.send(intent, currentState)),
@@ -59,7 +59,7 @@ export const createLogger = <T= { [key: string]: Observable<any> }>(
         ? tap(
           ([intent, currentState]) => {
             console.group('INTENT: ')
-            console.log(intent, currentState)
+            console.log(intent)
             console.groupEnd()
           }
         )
@@ -68,14 +68,8 @@ export const createLogger = <T= { [key: string]: Observable<any> }>(
     .subscribe()
 
   const terminate = () => {
-    devtoolsLogger.unsubscribe()
-  }
-
-  // HMR
-  if (module.hot) {
-    module.hot.dispose(() => {
-      terminate()
-    })
+    stateLogger.unsubscribe()
+    useCasesLogger.unsubscribe()
   }
 
   return {
