@@ -53,10 +53,9 @@ Pure functions, which can be grouped and used across the project
 # TODO:  
 !? Fix HMR for RxJS
 Create a real simple app (form, filtering, complex state)  
+Add tests (ava + jest? e2e?), see how they should work with useCases and components
 Add hydration of state example  
 Add time travel example  
 Add computed state example  
-Add tests, see how they should work with useCases  
 Add cancelable useCases  
 Create more complex app, maybe just develop a list of howtos.  
-? Add tools for useCases filtering  
