@@ -51,7 +51,6 @@ Can use Intents to invoke useCases
 Pure functions, which can be grouped and used across the project
 
 # TODO:  
-! Update recompose for RxJS6 ASAP: https://github.com/acdlite/recompose/pull/660 (fix for now to use "fromESObservable: _rxjs2.from," in node_modules/recompose/rxjsObservableConfig.js)  
 !? Fix HMR for RxJS
 Create a real simple app (form, filtering, complex state)  
 Add hydration of state example  

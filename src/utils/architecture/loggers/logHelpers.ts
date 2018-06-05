@@ -7,7 +7,7 @@ export const wrapLog =
     ? <T>(func: T, label?: string): T =>
       ((...args: any[]) => {
         console.group((func as any).name + ' ' + label || '')
-        console.log('Arguments = ', ...args)
+        console.log('Arguments = ', args)
         const result = (func as any)(...args)
         console.log('Result = ', result)
         console.groupEnd()
