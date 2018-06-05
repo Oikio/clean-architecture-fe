@@ -1,5 +1,5 @@
 import { compose, mapPropsStreamWithConfig, withProps } from 'recompose'
-import { from, Observable, Subject, fromEvent, of } from 'rxjs'
+import { Observable, of } from 'rxjs'
 
 const mapPropsStream = mapPropsStreamWithConfig({
   fromESObservable: of,
