@@ -1,6 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged, distinct } from 'rxjs/operators'
-import { createStateUpdater } from './createStateUpdater'
+import { distinctUntilChanged } from 'rxjs/operators';
+import { createStateUpdater } from './createStateUpdater';
 
 export const createState = <T>(name: string, startWith: T) => {
   const cell = new BehaviorSubject<T>(startWith)
