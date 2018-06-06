@@ -9,8 +9,6 @@ export const createState = <T>(name: string, startWith: T) => {
       distinctUntilChanged()
     )
 
-  cell.subscribe()
-
   const update = createStateUpdater<T, T>((state, payload) => payload, cell)
   return { cell, stream, update }
 }
