@@ -1,9 +1,9 @@
-import 'tachyons'
+import 'services/styles'
 
+import { Numbers } from 'components/Numbers'
 import * as React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
-
-import { Numbers } from './components/Numbers'
+import { module } from 'types/module'
 
 const AppView: React.StatelessComponent<any> = props => (
   <div>
