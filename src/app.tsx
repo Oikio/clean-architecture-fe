@@ -3,7 +3,6 @@ import 'services/styles'
 import { Numbers } from 'components/Numbers'
 import * as React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
-import { module } from 'types/module'
 
 const AppView: React.StatelessComponent<any> = props => (
   <div>

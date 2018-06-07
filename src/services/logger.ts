@@ -1,6 +1,5 @@
 import { numbersStream } from 'state/numbers'
 import { numbersWarningStream } from 'state/numbersWarning'
-import { module } from 'types/module'
 import { createLogger } from 'utils/architecture/loggers/createLogger'
 
 import { dispatcher } from './dispatcher'
