@@ -31,7 +31,6 @@
     "no-var-requires": false,
     "no-unused-variable": true,
     "no-unused-expression": false,
-    "interface-over-type-literal": false,
-    "eofline": false
+    "interface-over-type-literal": false
   }
 }
