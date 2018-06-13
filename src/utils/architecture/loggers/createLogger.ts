@@ -30,16 +30,17 @@ export const createLogger = <T= { [key: string]: Observable<any> }>(
   const stateNames = Object.keys(stateMap)
   const stateObservablesArr: Observable<any>[] = stateNames.map(k => (stateMap as any)[k])
 
-  const state = combineLatest(stateObservablesArr).pipe(
-    map(
-      stateArr => stateNames
-        .map((name, i) => ([name, stateArr[i]]))
-        .reduce((prev: { [key: string]: string }, curr) => {
-          prev[curr[0]] = curr[1]
-          return prev
-        }, {})
+  const state = combineLatest(stateObservablesArr)
+    .pipe(
+      map(
+        stateArr => stateNames
+          .map((name, i) => ([name, stateArr[i]]))
+          .reduce((prev: { [key: string]: string }, curr) => {
+            prev[curr[0]] = curr[1]
+            return prev
+          }, {})
+      )
     )
-  )
 
   const stateLogger = state
     .pipe(
@@ -76,4 +77,3 @@ export const createLogger = <T= { [key: string]: Observable<any> }>(
     terminate
   }
 }
-

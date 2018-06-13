@@ -11,9 +11,10 @@ interface DI {
 
 const name = 'numbers/setLength'
 
-export const setNumbersLengthIntent = createIntent<number>(name, dispatch)
+type Payload = number
+export const setNumbersLengthIntent = createIntent<Payload>(name, dispatch)
 
-export const setNumbersLengthUseCase = createUseCase<DI, number>(name,
+export const setNumbersLengthUseCase = createUseCase<DI, Payload>(name,
   (intents, di) =>
     intents
       .pipe(

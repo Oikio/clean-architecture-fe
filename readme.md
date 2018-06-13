@@ -51,6 +51,7 @@ Can use Intents to invoke useCases
 Pure functions, which can be grouped and used across the project
 
 # TODO:  
+Fix 
 !? Fix HMR for RxJS
 Create a real simple app (form, filtering, complex state)  
 Add tests (ava + jest? e2e?), see how they should work with useCases and components
