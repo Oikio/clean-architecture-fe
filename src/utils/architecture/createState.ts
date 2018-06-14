@@ -1,6 +1,7 @@
-import { BehaviorSubject } from 'rxjs';
-import { distinctUntilChanged } from 'rxjs/operators';
-import { createStateUpdater } from './createStateUpdater';
+import { BehaviorSubject } from 'rxjs'
+import { distinctUntilChanged } from 'rxjs/operators'
+
+import { createStateUpdater } from './createStateUpdater'
 
 export const createState = <T>(name: string, startWith: T) => {
   const cell = new BehaviorSubject<T>(startWith)
@@ -9,6 +10,6 @@ export const createState = <T>(name: string, startWith: T) => {
       distinctUntilChanged()
     )
 
-  const update = createStateUpdater<T, T>((state, payload) => payload, cell)
+  const update = createStateUpdater<T, T>(`${name}/update`, (state, payload) => payload, cell)
   return { cell, stream, update }
 }

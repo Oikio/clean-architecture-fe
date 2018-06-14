@@ -51,7 +51,6 @@ Can use Intents to invoke useCases
 Pure functions, which can be grouped and used across the project
 
 # TODO:  
-Update redux devtools logging to reflect intents (push intents up to state updaters?)  
 !? Fix HMR for RxJS
 Create a real simple app (form, filtering, complex state)  
 Add tests (ava + jest? e2e?), see how they should work with useCases and components

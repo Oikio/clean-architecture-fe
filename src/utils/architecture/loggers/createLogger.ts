@@ -1,6 +1,8 @@
 import { combineLatest, identity, Observable } from 'rxjs'
 import { map, tap, withLatestFrom } from 'rxjs/operators'
 
+import { Intent } from '../createIntent'
+
 /**
  * Redux devtools connector
  */
@@ -8,21 +10,15 @@ const devtools = process.env.NODE_ENV === 'development' && (window as any).__RED
   ? (window as any).__REDUX_DEVTOOLS_EXTENSION__.connect()
   : { init: () => { }, send: () => { } } // tslint:disable-line
 
-
-const logCurrentState = (currentState: any) => {
-  console.group('STATE: ')
-  console.log(currentState)
-  console.groupEnd()
-}
-
 /**
  * By default connects to redux devtools
  * @param stateMap hashmap of observables state, that will be passed to redux devtools or console.log
  * @param dispatcher dispatcher stream
  * @param ops
  */
-export const createLogger = <T= { [key: string]: Observable<any> }>(
-  dispatcher: Observable<any>,
+export const createLogger = <T = { [key: string]: Observable<any> }>(
+  dispatcher: Observable<Intent>,
+  stateUpdaters: Observable<{ name: string, intentName: string, payload?: any }>,
   stateMap: T,
   ops: { log?: boolean } = {}
 ) => {
@@ -44,23 +40,70 @@ export const createLogger = <T= { [key: string]: Observable<any> }>(
 
   const stateLogger = state
     .pipe(
-      tap(currentState => devtools.send('STATE_CHANGE', currentState)),
+      withLatestFrom(stateUpdaters),
+      tap(([currentState, updater]) => devtools.send(
+        {
+          type: `[updater] ${updater.name} [byIntent] ${updater.intentName}`,
+          payload: updater.payload
+        },
+        currentState
+      )
+      ),
       ops.log
-        ? tap(logCurrentState)
+        ? tap(
+          ([currentState, updater]) => {
+            console.group(`[updater] ${updater.name} [byIntent] ${updater.intentName}`)
+            console.log(updater.payload)
+            console.log(currentState)
+            console.groupEnd()
+          }
+        )
         : identity
 
     )
     .subscribe()
 
-  const useCasesLogger = dispatcher
+  // TODO: return if state logger will be inaccurate
+  // const stateUpdatersLogger = stateUpdaters.pipe(
+  //   withLatestFrom(state),
+  //   tap(
+  //     ([updater, currentState]) =>
+  //       devtools.send(
+  //         {
+  //           type: `[updater] ${updater.name} [byIntent] ${updater.intentName}`,
+  //           payload: updater.payload
+  //         },
+  //         currentState
+  //       )
+  //   ),
+  //   ops.log
+  //     ? tap(
+  //       ([updater, currentState]) => {
+  //         console.group(`[updater] ${updater.name} [byIntent] ${updater.intentName}`)
+  //         console.log(updater)
+  //         console.log(currentState)
+  //         console.groupEnd()
+  //       }
+  //     )
+  //     : identity
+  // )
+  //   .subscribe()
+
+  const intentsLogger = dispatcher
     .pipe(
       withLatestFrom(state),
-      tap(([intent, currentState]) => devtools.send(intent, currentState)),
+      tap(
+        ([intent, currentState]) => devtools.send(
+          { ...intent, type: `[intent] ${intent.type}` },
+          currentState
+        )
+      ),
       ops.log
         ? tap(
           ([intent, currentState]) => {
-            console.group('INTENT: ')
+            console.group(`[intent] ${intent.type}`)
             console.log(intent)
+            console.log(currentState)
             console.groupEnd()
           }
         )
@@ -70,7 +113,8 @@ export const createLogger = <T= { [key: string]: Observable<any> }>(
 
   const terminate = () => {
     stateLogger.unsubscribe()
-    useCasesLogger.unsubscribe()
+    // stateUpdatersLogger.unsubscribe()
+    intentsLogger.unsubscribe()
   }
 
   return {

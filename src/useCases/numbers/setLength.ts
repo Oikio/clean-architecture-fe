@@ -19,7 +19,7 @@ export const setNumbersLengthUseCase = createUseCase<DI, Payload>(name,
     intents
       .pipe(
         map(intent => createNumbersArrOfLength(intent.payload)),
-        tap(di.updateNumbers)
+        tap(payload => di.updateNumbers(name, payload))
       ),
   { hasIntent: true }
 )

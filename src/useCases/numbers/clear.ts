@@ -16,7 +16,7 @@ export const clearNumbersUseCase = createUseCase<DI>(name,
   (intents, di) =>
     intents
       .pipe(
-        tap(di.clearNumbers)
+        tap(() => di.clearNumbers(name))
       ),
   { hasIntent: true }
 )

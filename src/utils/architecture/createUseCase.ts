@@ -1,7 +1,6 @@
-import { identity, Observable } from 'rxjs'
-import { filter } from 'rxjs/operators'
-
-import { Intent } from './createIntent'
+import { Observable, identity } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { Intent } from './createIntent';
 
 interface Ops {
   // If has intent, then intents would be filtered by the name of useCase,

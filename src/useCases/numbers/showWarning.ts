@@ -21,10 +21,10 @@ export const showNumbersWarningUseCase = createUseCase<DI>(name,
         tap(showNumbersWarningIntent),
         tap(numbers =>
           numbers.length === 0
-            ? di.updateNumbersWarning(`Please set the array's length, but less than 10.`)
+            ? di.updateNumbersWarning(name, `Please set the array's length, but less than 10.`)
             : numbers.length >= 10
-              ? di.updateNumbersWarning(`Isn't that too much?`)
-              : di.updateNumbersWarning('Good boy!')
+              ? di.updateNumbersWarning(name, `Isn't that too much?`)
+              : di.updateNumbersWarning(name, 'Good boy!')
         )
       )
 )

@@ -1,6 +1,6 @@
-import { Subject } from 'rxjs'
+import { Subject } from 'rxjs';
+import { Intent } from './createIntent';
 
-import { Intent } from './createIntent'
 
 export const createDispatcher = <T = any>() => {
   const dispatcher = new Subject<Intent<T>>()
