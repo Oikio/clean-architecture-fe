@@ -23,6 +23,7 @@
     "react-inlinesvg": "^0.8.1",
     "recompose": "^0.30.0",
     "rxjs": "^6.3.3",
+    "rxjs-hooks": "^0.2.1",
     "tachyons": "^4.10.0"
   },
   "devDependencies": {

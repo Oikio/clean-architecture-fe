@@ -1,22 +1,35 @@
 import * as React from 'react'
+import { EvenNumbersState } from 'state/evenNumbers'
+import { NumbersState } from 'state/numbers'
+import { NumbersWarningState } from 'state/numbersWarning'
+import { clearNumbersIntent } from 'useCases/numbers/clear'
+import { setNumbersLengthIntent } from 'useCases/numbers/setLength'
 
-import { Props } from '.'
+export interface Props {
+  numbers: NumbersState
+  evenNumbers: EvenNumbersState
+  warning: NumbersWarningState
+  lengthOfArray: number
+  setNumbersLength: typeof setNumbersLengthIntent
+  clearNumbers: typeof clearNumbersIntent
+  updateLengthOfArray: (number: number) => void
+}
 
 export const NumbersView: React.StatelessComponent<Props> = ({
   numbers,
   evenNumbers,
   warning,
   lengthOfArray,
-  clearNumbersIntent,
-  setNumbersLengthIntent,
+  clearNumbers,
+  setNumbersLength,
   updateLengthOfArray
 }) =>
   <div className="pa4">
-    <form onSubmit={e => { e.preventDefault(); setNumbersLengthIntent(lengthOfArray) }}>
+    <form onSubmit={e => { e.preventDefault(); setNumbersLength(lengthOfArray) }}>
       <p>
         Warning: {warning}
       </p>
-      <button type="button" onClick={() => clearNumbersIntent()}>clear</button>
+      <button type="button" onClick={() => clearNumbers()}>clear</button>
       <button type="submit">set</button>
       <input
         type="number"

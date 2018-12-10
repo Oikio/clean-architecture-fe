@@ -11,7 +11,7 @@ interface Ops {
 export function createUseCase
   <DI, T = any>(
     name: string,
-    useCase: (intents: Observable<Intent<T>>, di: DI | {}) => Observable<any>,
+    useCase: (intents: Observable<Intent<T>>, di: DI) => Observable<any>,
     ops: Ops = { hasIntent: false }
   ) {
   return (intents: Observable<Intent<T>>, di: DI) => {
@@ -20,7 +20,7 @@ export function createUseCase
         .pipe(
           ops.hasIntent ? filter((intent: Intent) => intent.type === name) : identity
         ),
-      di || {}
+      di
     )
       .subscribe()
   }
