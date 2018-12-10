@@ -5,30 +5,34 @@
   "main": "dist/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "parcel src/assets/index.html",
+    "dev": "parcel src/assets/index.html --no-autoinstall",
     "build": "parcel build src/assets/index.html"
   },
   "author": "Oikio",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^10.3.1",
-    "@types/react": "^16.3.16",
-    "@types/react-dom": "^16.0.6",
-    "@types/recompose": "^0.26.1",
-    "fp-ts": "^1.6.1",
-    "ospec": "^2.1.0",
-    "react": "^16.4.0",
-    "react-dom": "^16.4.0",
-    "recompose": "^0.27.1",
-    "rxjs": "6.2.0",
+    "@types/node": "^10.3.3",
+    "@types/react": "^16.7.13",
+    "@types/react-dom": "^16.0.11",
+    "@types/recompose": "^0.30.0",
+    "assets": "^3.0.0",
+    "fp-ts": "^1.6.2",
+    "images": "^3.0.1",
+    "react": "^16.7.0-alpha.2",
+    "react-dom": "^16.7.0-alpha.2",
+    "react-inlinesvg": "^0.8.1",
+    "recompose": "^0.30.0",
+    "rxjs": "^6.3.3",
     "tachyons": "^4.10.0"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.8.1",
-    "parcel-plugin-bundle-visualiser": "^1.1.2",
-    "parcel-plugin-typescript": "^0.7.1",
-    "tslint": "^5.10.0",
+    "ava": "^0.25.0",
+    "node-sass": "^4.11.0",
+    "parcel-bundler": "1.9.4",
+    "parcel-plugin-bundle-visualiser": "^1.2.0",
+    "parcel-plugin-typescript": "^1.0.0",
+    "tslint": "^5.11.0",
     "tslint-react": "^3.6.0",
-    "typescript": "^2.9.1"
+    "typescript": "^3.2.2"
   }
 }
