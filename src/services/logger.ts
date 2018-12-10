@@ -1,9 +1,11 @@
+import { evenNumbersStream } from 'state/evenNumbers'
 import { numbersStream } from 'state/numbers'
 import { numbersWarningStream } from 'state/numbersWarning'
+import { _stateUpdatersStream } from 'utils/architecture/createStateUpdater'
 import { createLogger } from 'utils/architecture/loggers/createLogger'
 
 import { dispatcher } from './dispatcher'
-import { _stateUpdatersStream } from 'utils/architecture/createStateUpdater';
+
 
 if (process.env.NODE_ENV === 'development') {
   const logger = createLogger(
@@ -11,6 +13,7 @@ if (process.env.NODE_ENV === 'development') {
     _stateUpdatersStream,
     {
       numbers: numbersStream,
+      evenNumbers: evenNumbersStream,
       numbersWarning: numbersWarningStream
     }
   )
