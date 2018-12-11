@@ -11,14 +11,16 @@ const devtools = process.env.NODE_ENV === 'development' && (window as any).__RED
   : { init: () => { }, send: () => { } } // tslint:disable-line
 
 /**
- * By default connects to redux devtools
- * @param stateMap hashmap of observables state, that will be passed to redux devtools or console.log
+ * Logs intents, state and useCases changes.
+ * By default connects to redux devtools.
+ * @param stateMap observables with state, which will be passed to redux devtools or console.log
  * @param dispatcher dispatcher stream
  * @param ops
  */
 export const createLogger = <T = { [key: string]: Observable<any> }>(
   dispatcher: Observable<Intent>,
-  stateUpdaters: Observable<{ name: string, intentName: string, payload?: any }>,
+  stateUpdaters: Observable<{ name: string, byUseCase: string, payload?: any }>,
+  useCases: Observable<{ name: string, payload?: any }>,
   stateMap: T & { [key: string]: Observable<any> },
   ops: { log?: boolean } = {}
 ) => {
@@ -31,6 +33,7 @@ export const createLogger = <T = { [key: string]: Observable<any> }>(
       )
     )
   )
+
   const lastChangedState = merge(...stateObservablesArr)
 
   const state = combineLatest(...stateObservablesArr)
@@ -44,7 +47,7 @@ export const createLogger = <T = { [key: string]: Observable<any> }>(
     )
 
   const stateLogger = zip(
-    // skipping first changes, because state is emitted only after every stateObservable has processed a value (combineLatest)
+    // skipping first values, state is emitted only after every stateObservable has produced first value (combineLatest)
     lastChangedState.pipe(skip(stateObservablesArr.length - 1)),
     state
   )
@@ -53,8 +56,8 @@ export const createLogger = <T = { [key: string]: Observable<any> }>(
       tap(
         ([[[lastChangedStateName], currentState], updater]) => devtools.send(
           {
-            type: `[state] ${lastChangedStateName} by ${updater.name} from ${updater.intentName}`,
-            intent: updater.intentName,
+            type: `[state] ${lastChangedStateName} <- ${updater.name} <- ${updater.byUseCase}`,
+            useCaseName: updater.byUseCase,
             updater: updater.name,
             lastChangedState: lastChangedStateName,
             payload: updater.payload
@@ -65,7 +68,7 @@ export const createLogger = <T = { [key: string]: Observable<any> }>(
       ops.log
         ? tap(
           ([[[lastChangedStateName], currentState], updater]) => {
-            console.group(`[state] ${lastChangedStateName} by ${updater.name} from ${updater.intentName}`)
+            console.group(`[state] ${lastChangedStateName} <- ${updater.name} <- ${updater.byUseCase}`)
             console.log(updater.payload)
             console.log(currentState)
             console.groupEnd()
@@ -98,10 +101,28 @@ export const createLogger = <T = { [key: string]: Observable<any> }>(
     )
     .subscribe()
 
+  const useCasesLogger = useCases.pipe(
+    withLatestFrom(state),
+    tap(
+      ([{ name, payload }, currentState]) => devtools.send(
+        { type: `[useCase] ${name}`, payload },
+        currentState
+      )
+    ),
+    ops.log
+      ? tap(
+        ([{ name, payload }]) => {
+          console.group(`[useCase] ${name}`, payload)
+          console.groupEnd()
+        }
+      )
+      : identity
+  ).subscribe()
+
   const terminate = () => {
     stateLogger.unsubscribe()
-    // stateUpdatersLogger.unsubscribe()
     intentsLogger.unsubscribe()
+    useCasesLogger.unsubscribe()
   }
 
   return {

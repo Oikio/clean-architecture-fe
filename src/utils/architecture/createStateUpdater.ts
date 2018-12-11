@@ -7,19 +7,19 @@ const isArity1 = (fn: Function): fn is Arity1Updater<any> => fn.length === 1
 const isArity2 = (fn: Function): fn is Arity2Updater<any, any> => fn.length === 2
 
 // used only for logging
-export const _stateUpdatersStream = new Subject<{ name: string, intentName: string, payload?: any }>()
+export const _stateUpdatersStream = new Subject<{ name: string, byUseCase: string, payload?: any }>()
 
 export function createStateUpdater<T>(
   name: string,
   fn: (state: T) => T,
   cell: BehaviorSubject<T>
-): (intentName: string) => void
+): (byUseCase: string) => void
 
 export function createStateUpdater<T, U>(
   name: string,
   fn: Arity1Updater<T> | Arity2Updater<T, U>,
   cell: BehaviorSubject<T>
-): (intentName: string, payload: U) => void
+): (byUseCase: string, payload: U) => void
 
 export function createStateUpdater<T, U>(
   name: string,
@@ -27,14 +27,14 @@ export function createStateUpdater<T, U>(
   cell: BehaviorSubject<T>
 ) {
   if (isArity1(fn)) {
-    return (intentName: string) => {
-      if (process.env.NODE_ENV === 'development') _stateUpdatersStream.next({ name, intentName })
+    return (byUseCase: string) => {
+      if (process.env.NODE_ENV === 'development') _stateUpdatersStream.next({ name, byUseCase })
       cell.next(fn(cell.getValue()))
     }
   }
   if (isArity2(fn)) {
-    return (intentName: string, payload: U) => {
-      if (process.env.NODE_ENV === 'development') _stateUpdatersStream.next({ name, intentName, payload })
+    return (byUseCase: string, payload: U) => {
+      if (process.env.NODE_ENV === 'development') _stateUpdatersStream.next({ name, byUseCase, payload })
       cell.next((fn as Arity2Updater<T, U>)(cell.getValue(), payload))
     }
   }
