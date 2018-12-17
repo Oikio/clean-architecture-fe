@@ -1,3 +1,4 @@
+import { Title } from 'components/Title'
 import * as React from 'react'
 import { EvenNumbersState } from 'state/evenNumbers'
 import { NumbersState } from 'state/numbers'
@@ -25,6 +26,7 @@ export const NumbersView: React.StatelessComponent<Props> = ({
   updateLengthOfArray
 }) =>
   <div className="pa4">
+    <Title text="Numbers list." />
     <form onSubmit={e => { e.preventDefault(); setNumbersLength(lengthOfArray) }}>
       <p>
         Warning: {warning}

@@ -9,7 +9,7 @@ import { setNumbersLengthIntent } from 'useCases/numbers/setLength'
 import { NumbersView } from './NumbersView'
 
 
-export const Numbers = () => {
+export const Numbers: React.StatelessComponent = () => {
   const numbers = useObservable(() => numbersStream)
   const evenNumbers = useObservable(() => evenNumbersStream)
   const warning = useObservable(() => numbersWarningStream, undefined)
