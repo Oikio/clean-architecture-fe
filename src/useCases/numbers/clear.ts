@@ -1,8 +1,10 @@
 import { tap } from 'rxjs/operators'
-import { dispatch } from 'services/dispatcher'
-import { clearNumbers as clearNumbers } from 'state/numbers'
-import { createIntent } from 'utils/architecture/createIntent'
-import { createUseCase } from 'utils/architecture/createUseCase'
+
+import { dispatch } from '../../services/dispatcher'
+import { clearNumbers as clearNumbers } from '../../state/numbers'
+import { createIntent } from '../../utils/architecture/createIntent'
+import { createUseCase } from '../../utils/architecture/createUseCase'
+
 
 const name = 'numbers/clear'
 

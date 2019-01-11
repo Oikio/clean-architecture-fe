@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { useObservable } from 'rxjs-hooks'
-import { evenNumbersStream } from 'state/evenNumbers'
-import { numbersStream } from 'state/numbers'
-import { numbersWarningStream } from 'state/numbersWarning'
-import { clearNumbersIntent } from 'useCases/numbers/clear'
-import { setNumbersLengthIntent } from 'useCases/numbers/setLength'
 
+import { evenNumbersStream } from '../../state/evenNumbers'
+import { numbersStream } from '../../state/numbers'
+import { numbersWarningStream } from '../../state/numbersWarning'
+import { clearNumbersIntent } from '../../useCases/numbers/clear'
+import { setNumbersLengthIntent } from '../../useCases/numbers/setLength'
 import { NumbersView } from './NumbersView'
 
 

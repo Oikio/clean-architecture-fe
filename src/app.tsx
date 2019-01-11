@@ -1,8 +1,10 @@
-import 'services/styles'
+import './services/styles'
 
-import { Numbers } from 'components/Numbers'
 import * as React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
+
+import { Numbers } from './components/Numbers'
+
 
 const AppView: React.StatelessComponent<any> = props => (
   <div>

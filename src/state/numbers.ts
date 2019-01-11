@@ -1,5 +1,6 @@
-import { createState } from 'utils/architecture/createState'
-import { createStateUpdater } from 'utils/architecture/createStateUpdater'
+import { createState } from '../utils/architecture/createState'
+import { createStateUpdater } from '../utils/architecture/createStateUpdater'
+
 
 export type NumbersState = number[]
 const name = 'numbers'

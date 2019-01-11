@@ -1,7 +1,9 @@
 import { tap } from 'rxjs/operators'
-import { numbersStream } from 'state/numbers'
-import { updateNumbersWarning } from 'state/numbersWarning'
-import { createUseCase } from 'utils/architecture/createUseCase'
+
+import { numbersStream } from '../../state/numbers'
+import { updateNumbersWarning } from '../../state/numbersWarning'
+import { createUseCase } from '../../utils/architecture/createUseCase'
+
 
 const name = 'numbers/showWarning'
 

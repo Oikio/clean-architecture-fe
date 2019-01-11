@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "outDir": "dist-ts",
     "strict": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,

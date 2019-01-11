@@ -3,6 +3,7 @@ import { filter, tap } from 'rxjs/operators'
 
 import { Intent } from './createIntent'
 
+
 interface Ops {
   // If has intent, then intents would be filtered by the name of useCase,
   // otherwise will dispatch action before each reaction

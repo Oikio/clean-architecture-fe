@@ -3,6 +3,7 @@ import { map, tap, withLatestFrom, skip } from 'rxjs/operators'
 
 import { Intent } from '../createIntent'
 
+
 /**
  * Redux devtools connector
  */

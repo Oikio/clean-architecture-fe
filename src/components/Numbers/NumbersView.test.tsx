@@ -1,8 +1,9 @@
 import { shallow } from 'enzyme'
 import * as React from 'react'
+import * as sinon from 'sinon'
 
 import { NumbersView, Props } from './NumbersView'
-import * as sinon from 'sinon'
+
 
 const props: Props = {
   numbers: [],

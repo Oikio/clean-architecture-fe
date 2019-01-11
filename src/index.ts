@@ -1,3 +1,6 @@
+// logger
 import './services/logger'
-import 'useCases'
-import 'app'
+// business layer
+import './useCases'
+// view layer
+import './app'

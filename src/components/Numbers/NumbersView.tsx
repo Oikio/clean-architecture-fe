@@ -1,10 +1,12 @@
-import { Title } from 'components/Title'
 import * as React from 'react'
-import { EvenNumbersState } from 'state/evenNumbers'
-import { NumbersState } from 'state/numbers'
-import { NumbersWarningState } from 'state/numbersWarning'
-import { clearNumbersIntent } from 'useCases/numbers/clear'
-import { setNumbersLengthIntent } from 'useCases/numbers/setLength'
+
+import { Title } from '../../components/Title'
+import { EvenNumbersState } from '../../state/evenNumbers'
+import { NumbersState } from '../../state/numbers'
+import { NumbersWarningState } from '../../state/numbersWarning'
+import { clearNumbersIntent } from '../../useCases/numbers/clear'
+import { setNumbersLengthIntent } from '../../useCases/numbers/setLength'
+
 
 export interface Props {
   numbers: NumbersState

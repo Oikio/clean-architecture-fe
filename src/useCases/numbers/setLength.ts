@@ -1,9 +1,11 @@
 import { map, tap } from 'rxjs/operators'
-import { dispatch } from 'services/dispatcher'
-import { updateNumbers } from 'state/numbers'
-import { createIntent } from 'utils/architecture/createIntent'
-import { createUseCase } from 'utils/architecture/createUseCase'
-import { createNumbersArrOfLength } from 'utils/createNumbersArrOfLength'
+
+import { dispatch } from '../../services/dispatcher'
+import { updateNumbers } from '../../state/numbers'
+import { createIntent } from '../../utils/architecture/createIntent'
+import { createUseCase } from '../../utils/architecture/createUseCase'
+import { createNumbersArrOfLength } from '../../utils/createNumbersArrOfLength'
+
 
 interface DI {
   updateNumbers: typeof updateNumbers
