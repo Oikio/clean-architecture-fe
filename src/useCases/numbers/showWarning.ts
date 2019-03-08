@@ -5,14 +5,13 @@ import { updateNumbersWarning } from '../../state/numbersWarning'
 import { createUseCase } from '../../utils/architecture/createUseCase'
 
 
-const name = 'numbers/showWarning'
-
 interface DI {
   numbersStream: typeof numbersStream
   updateNumbersWarning: typeof updateNumbersWarning
 }
 
-export const showNumbersWarningUseCase = createUseCase<DI>(name,
+const name = 'numbers/showWarning'
+export const { useCase: showNumbersWarningUseCase } = createUseCase<DI>(name,
   (intents, di) =>
     numbersStream
       .pipe(

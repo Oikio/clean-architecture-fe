@@ -1,4 +1,4 @@
-import { dispatcher } from '../../services/dispatcher'
+import { dispatcher } from '../../dispatcher'
 import { clearNumbers, numbersStream, updateNumbers } from '../../state/numbers'
 import { updateNumbersWarning } from '../../state/numbersWarning'
 import { clearNumbersUseCase } from './clear'

@@ -1,9 +1,10 @@
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs'
 
 
 interface Arity1Updater<T> { (state: T): T }
 interface Arity2Updater<T, U> { (state: T, payload: U): T }
 
+const isArity0 = (fn: Function): fn is Arity1Updater<any> => fn.length === 0
 const isArity1 = (fn: Function): fn is Arity1Updater<any> => fn.length === 1
 const isArity2 = (fn: Function): fn is Arity2Updater<any, any> => fn.length === 2
 
@@ -27,7 +28,7 @@ export function createStateUpdater<T, U>(
   fn: Arity1Updater<T> | Arity2Updater<T, U>,
   cell: BehaviorSubject<T>
 ) {
-  if (isArity1(fn)) {
+  if (isArity1(fn) || isArity0(fn)) {
     return (byUseCase: string) => {
       if (process.env.NODE_ENV === 'development') _stateUpdatersStream.next({ name, byUseCase })
       cell.next(fn(cell.getValue()))

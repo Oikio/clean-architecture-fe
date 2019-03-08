@@ -1,28 +1,41 @@
-import { identity, Observable, Subject } from 'rxjs'
+import { identity, Observable, Subject, Subscription } from 'rxjs'
 import { filter, tap } from 'rxjs/operators'
 
-import { Intent } from './createIntent'
+import { createIntent, Intent } from './createIntent'
 
 
 interface Ops {
-  // If has intent, then intents would be filtered by the name of useCase,
+  // If has intent, then intents would be filtered by the name of the useCase,
   // otherwise will dispatch action before each reaction
-  hasIntent?: boolean
+  // Also in case of intent will provide intent in returned object
+  intent?: { dispatch: (intent: Intent<any>) => void }
 }
 
 export const _useCasesStream = new Subject<{ name: string, payload?: any }>()
 
-export const createUseCase =
-  <DI, T = any>(
-    name: string,
-    useCase: (intents: Observable<Intent<T>>, di: DI) => Observable<any>,
-    ops: Ops = { hasIntent: false }
-  ) => {
-    return (intents: Observable<Intent<T>>, di: DI) => {
-      return useCase(
+export function createUseCase<DI>(
+  name: string,
+  useCase: (intents: Observable<Intent<any>>, di: DI) => Observable<any>,
+  ops?: Ops
+): { useCase: (intents: Observable<Intent<any>>, di: DI) => Subscription, intent: () => void }
+
+export function createUseCase<DI, T>(
+  name: string,
+  useCase: (intents: Observable<Intent<T>>, di: DI) => Observable<any>,
+  ops?: Ops
+): { useCase: (intents: Observable<Intent<T>>, di: DI) => Subscription, intent: (payload: T) => void }
+
+export function createUseCase<DI, T>(
+  name: string,
+  useCase: (intents: Observable<Intent<T>>, di: DI) => Observable<any>,
+  ops: Ops = {}
+) {
+  return {
+    useCase: (intents: Observable<Intent<T>>, di: DI) =>
+      useCase(
         intents
           .pipe(
-            ops.hasIntent
+            ops.intent
               ? filter((intent: Intent) => intent.type === name)
               : identity,
             process.env.NODE_ENV === 'development'
@@ -31,6 +44,7 @@ export const createUseCase =
           ),
         di
       )
-        .subscribe()
-    }
+        .subscribe(),
+    intent: ops.intent ? createIntent<Intent<T>>(name, ops.intent.dispatch) : undefined!
   }
+}

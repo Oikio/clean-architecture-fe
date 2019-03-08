@@ -6,8 +6,7 @@ import { numbersStream } from '../../state/numbers'
 import { numbersWarningStream } from '../../state/numbersWarning'
 import { clearNumbersIntent } from '../../useCases/numbers/clear'
 import { setNumbersLengthIntent } from '../../useCases/numbers/setLength'
-import { NumbersView } from './NumbersView'
-
+import { Title } from '../Title'
 
 export const Numbers: React.StatelessComponent = () => {
   const numbers = useObservable(() => numbersStream)
@@ -17,14 +16,27 @@ export const Numbers: React.StatelessComponent = () => {
 
 
   return numbers && evenNumbers
-    ? <NumbersView
-      numbers={numbers}
-      evenNumbers={evenNumbers}
-      warning={warning}
-      lengthOfArray={lengthOfArray}
-      clearNumbers={clearNumbersIntent}
-      setNumbersLength={setNumbersLengthIntent}
-      updateLengthOfArray={updateLengthOfArray}
-    />
+    ? <div className="pa4">
+      <Title>Numbers</Title>
+      <form onSubmit={e => { e.preventDefault(); setNumbersLengthIntent(lengthOfArray) }}>
+        <p>
+          Warning: {warning}
+        </p>
+        <button type="button" onClick={() => clearNumbersIntent()}>clear</button>
+        <button type="submit">set</button>
+        <input
+          type="number"
+          onChange={e => updateLengthOfArray(parseInt(e.currentTarget.value, 10))}
+          value={lengthOfArray}
+        />
+      </form>
+
+      <br />
+      <div><b>numbers:</b> {numbers.join(', ')}!</div>
+
+      <br />
+      <div><b>evenNumbers:</b> {evenNumbers.join(', ')}!</div>
+    </div>
+
     : null
 }
