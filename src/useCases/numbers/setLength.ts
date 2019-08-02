@@ -6,19 +6,20 @@ import { createUseCase } from '../../utils/architecture/createUseCase'
 import { createNumbersArrOfLength } from '../../utils/createNumbersArrOfLength'
 
 
-interface DI {
+interface SideEffects {
   updateNumbers: typeof updateNumbers
 }
 
 type Payload = number
 
 const name = 'numbers/setLength'
-export const { useCase: setNumbersLengthUseCase, intent: setNumbersLengthIntent } = createUseCase<DI, Payload>(name,
-  (intents, di) =>
-    intents
-      .pipe(
-        map(intent => createNumbersArrOfLength(intent.payload)),
-        tap(payload => di.updateNumbers(name, payload))
-      ),
-  { intent: { dispatch } }
-)
+export const { useCase: setNumbersLengthUseCase, intent: setNumbersLengthIntent } =
+  createUseCase<SideEffects, Payload>(name,
+    (intents, se) =>
+      intents
+        .pipe(
+          map(intent => createNumbersArrOfLength(intent.payload)),
+          tap(payload => se.updateNumbers(name, payload))
+        ),
+    { intent: { dispatch } }
+  )

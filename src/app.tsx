@@ -3,14 +3,14 @@ import './services/styles'
 import * as React from 'react'
 import { render, unmountComponentAtNode } from 'react-dom'
 
-import { Numbers } from './components/Numbers'
+import { Numbers } from './components/Numbers/Numbers'
 
 
-const AppView: React.StatelessComponent<any> = props => (
-  <div>
+const AppView: React.StatelessComponent<any> = () =>
+  <>
     <Numbers />
-  </div>
-)
+  </>
+
 
 const App = AppView
 

@@ -1,1 +1,1 @@
-declare var module: NodeModule & { hot: any }
+declare interface NodeModule { hot: any }

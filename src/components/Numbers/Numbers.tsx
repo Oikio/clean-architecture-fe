@@ -6,7 +6,7 @@ import { numbersStream } from '../../state/numbers'
 import { numbersWarningStream } from '../../state/numbersWarning'
 import { clearNumbersIntent } from '../../useCases/numbers/clear'
 import { setNumbersLengthIntent } from '../../useCases/numbers/setLength'
-import { Title } from '../Title'
+import { Title } from '../Title/Title'
 
 export const Numbers: React.StatelessComponent = () => {
   const numbers = useObservable(() => numbersStream)

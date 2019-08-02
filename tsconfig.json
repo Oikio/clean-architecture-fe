@@ -1,6 +1,10 @@
 {
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
   "compilerOptions": {
-    "outDir": "dist-ts",
+    "outDir": "dist",
     "strict": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -11,9 +15,6 @@
     "module": "es2015",
     "moduleResolution": "node",
     "allowJs": true,
-    "jsx": "react",
-    "typeRoots": [
-      "node_modules/@types"
-    ]
+    "jsx": "react"
   }
 }

@@ -5,16 +5,16 @@ import { clearNumbers } from '../../state/numbers'
 import { createUseCase } from '../../utils/architecture/createUseCase'
 
 
-interface DI {
+interface SideEffects {
   clearNumbers: typeof clearNumbers
 }
 
 const name = 'numbers/clear'
-export const { useCase: clearNumbersUseCase, intent: clearNumbersIntent } = createUseCase<DI>(name,
-  (intents, di) =>
+export const { useCase: clearNumbersUseCase, intent: clearNumbersIntent } = createUseCase<SideEffects>(name,
+  (intents, se) =>
     intents
       .pipe(
-        tap(() => di.clearNumbers(name))
+        tap(() => se.clearNumbers(name))
       ),
   { intent: { dispatch } }
 )
