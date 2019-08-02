@@ -1,5 +1,5 @@
 # Concept
-Here is an example of "clean architecture", which can be used across frontend projects of any size and technologies.
+This is an example of "clean architecture", which can be used across frontend projects of any size and technologies.
 This repository is an implementation and example of the idea, so everything from FRP to view libraries are just implementation details.
 I'm quite familiar with React and FRP, that's why my example is built on top of these technologies, but you can use anything as long as you follow this:
 
