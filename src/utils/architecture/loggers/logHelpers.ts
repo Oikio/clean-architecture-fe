@@ -1,6 +1,6 @@
 export const log = process.env.NODE_ENV === 'development'
   ? (...args: any[]) => console.log(...args)
-  : (...args: any[]) => { } // tslint:disable-line  
+  : (...args: any[]) => { }
 
 export const wrapLog =
   process.env.NODE_ENV === 'development'
