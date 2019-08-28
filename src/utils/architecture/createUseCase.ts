@@ -6,7 +6,7 @@ import { createIntent, Intent } from './createIntent'
 
 interface Ops {
   /**
-   * If UseCase has intent to trigger it, then intentsStream would be filtered by the name of the useCase.
+   * If UseCase has intent to trigger it, then intentsStream would be filtered by the name of the UseCase.
    * Intent needs dispatch method form dispatcher to be passed in configuration.
    * If intent is truthy, createUseCase function will provide intent in returned object
    */
