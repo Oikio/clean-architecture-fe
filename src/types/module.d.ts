@@ -1,4 +1,4 @@
-declare interface NodeModule { hot: any }
+declare const module: { hot: any }
 
 declare const process: {
   env: {
