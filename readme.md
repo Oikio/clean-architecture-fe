@@ -3,7 +3,9 @@ This is an example of "clean architecture", which can be used across frontend pr
 This repository is an implementation and example of the idea, so everything from FRP to view libraries are just implementation details.  
 I'm quite familiar with React and FRP, that's why my example is built on top of these technologies, but you can use anything as long as you follow this:
 
-# [Diagram](https://drive.google.com/file/d/1H87X78EfpOGstN7St-Y4Ytgk-UokJ08M/view?usp=sharing)
+# Diagram
+
+[![Diagram](diagram.png)](https://drive.google.com/file/d/1H87X78EfpOGstN7St-Y4Ytgk-UokJ08M/view?usp=sharing)
 
 # State
 State can be a stream or group of streams.   
