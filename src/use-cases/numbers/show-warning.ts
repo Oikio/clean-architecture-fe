@@ -1,8 +1,8 @@
 import { tap } from 'rxjs/operators'
 
 import { numbersStream } from '../../state/numbers'
-import { updateNumbersWarning } from '../../state/numbersWarning'
-import { createUseCase } from '../../utils/architecture/createUseCase'
+import { updateNumbersWarning } from '../../state/numbers-warning'
+import { createUseCase } from '../../utils/architecture/create-use-case'
 
 
 interface SideEffects {

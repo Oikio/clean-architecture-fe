@@ -1,6 +1,6 @@
 // logger
 import './services/logger'
 // business layer
-import './useCases'
+import './use-cases'
 // view layer
 import './app'

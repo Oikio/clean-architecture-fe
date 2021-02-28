@@ -1,7 +1,7 @@
 import { identity, Observable, Subject } from 'rxjs'
 import { filter, tap } from 'rxjs/operators'
 
-import { createIntent } from './createIntent'
+import { createIntent } from './create-intent'
 import { Intent, UseCase, UseCaseCallback } from './types'
 
 interface Options {

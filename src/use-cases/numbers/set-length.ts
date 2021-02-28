@@ -2,7 +2,7 @@ import { map, tap } from 'rxjs/operators'
 
 import { dispatch } from '../../dispatcher'
 import { updateNumbers } from '../../state/numbers'
-import { createUseCase } from '../../utils/architecture/createUseCase'
+import { createUseCase } from '../../utils/architecture/create-use-case'
 
 
 interface SideEffects {

@@ -6,7 +6,7 @@ export const _stateUpdatersStream = new Subject<StateUpdaterLog>(); // used only
 
 export function createStateUpdater<T>(
   name: string,
-  reducer: Reducer<T, undefined>,
+  reducer: Reducer<T>,
   subject: BehaviorSubject<T>
 ): (byUseCase: string) => void
 

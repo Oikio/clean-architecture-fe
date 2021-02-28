@@ -1,5 +1,5 @@
-import { createState } from '../utils/architecture/createState'
-import { createStateUpdater } from '../utils/architecture/createStateUpdater'
+import { createState } from '../utils/architecture/create-state'
+import { createStateUpdater } from '../utils/architecture/create-state-updater'
 
 
 export type NumbersState = number[]

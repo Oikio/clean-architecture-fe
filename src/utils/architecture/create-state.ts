@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs'
 import { distinctUntilChanged } from 'rxjs/operators'
 
-import { createStateUpdater } from './createStateUpdater'
+import { createStateUpdater } from './create-state-updater'
 
 
 export const createState = <T>(name: string, startWith: T) => {

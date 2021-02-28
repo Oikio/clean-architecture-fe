@@ -1,4 +1,3 @@
-import { fromPredicate } from "fp-ts/lib/Option"
 import { Intent } from './types'
 
 export function createIntent<T = any>(type: string, dispatch: (intent: Intent<T>) => void) {

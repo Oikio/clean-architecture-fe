@@ -1,9 +1,9 @@
 import { dispatcher } from '../dispatcher'
-import { evenNumbersStream } from '../state/evenNumbers'
+import { evenNumbersStream } from '../state/even-numbers'
 import { numbersStream } from '../state/numbers'
-import { numbersWarningStream } from '../state/numbersWarning'
-import { _stateUpdatersStream } from '../utils/architecture/createStateUpdater'
-import { _useCasesStream } from '../utils/architecture/createUseCase'
+import { numbersWarningStream } from '../state/numbers-warning'
+import { _stateUpdatersStream } from '../utils/architecture/create-state-updater'
+import { _useCasesStream } from '../utils/architecture/create-use-case'
 import { createLogger } from '../utils/loggers/create-logger'
 
 
