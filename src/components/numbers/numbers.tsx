@@ -1,21 +1,21 @@
 import * as React from 'react'
-import { useObservable } from 'rxjs-hooks'
+import { useObservableState } from 'observable-hooks'
 
-import { evenNumbersStream } from '../../state/even-numbers'
-import { numbersStream } from '../../state/numbers'
-import { numbersWarningStream } from '../../state/numbers-warning'
+import { evenNumbers, evenNumbers$ } from '../../state/even-numbers'
+import { numbers, numbers$ } from '../../state/numbers'
+import { numbersWarning, numbersWarning$ } from '../../state/numbers-warning'
 import { clearNumbersIntent } from '../../use-cases/numbers/clear'
 import { setNumbersLengthIntent } from '../../use-cases/numbers/set-length'
 import { Title } from '../title/title'
 
 export const Numbers: React.FC = () => {
-  const numbers = useObservable(() => numbersStream)
-  const evenNumbers = useObservable(() => evenNumbersStream)
-  const warning = useObservable(() => numbersWarningStream, undefined)
+  const curNumbers = useObservableState(numbers$, numbers)
+  const curEvenNumbers = useObservableState(evenNumbers$, evenNumbers)
+  const warning = useObservableState(numbersWarning$, numbersWarning)
   const [lengthOfArray, updateLengthOfArray] = React.useState(1)
 
 
-  return numbers && evenNumbers
+  return curNumbers && curEvenNumbers
     ? <div className="pa4">
       <Title>Numbers</Title>
       <form onSubmit={e => { e.preventDefault(); setNumbersLengthIntent(lengthOfArray) }}>
@@ -32,10 +32,10 @@ export const Numbers: React.FC = () => {
       </form>
 
       <br />
-      <div><b>numbers:</b> {numbers.join(', ')}!</div>
+      <div><b>numbers:</b> {curNumbers.join(', ')}!</div>
 
       <br />
-      <div><b>evenNumbers:</b> {evenNumbers.join(', ')}!</div>
+      <div><b>evenNumbers:</b> {curEvenNumbers.join(', ')}!</div>
     </div>
 
     : null

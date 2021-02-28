@@ -1,6 +1,13 @@
 import { createState } from '../utils/architecture/create-state'
 
 
-export type NumbersWarningState = string | undefined
-const numbersWarning = createState<NumbersWarningState>('numbersWarnings', undefined)
-export const { stream: numbersWarningStream, update: updateNumbersWarning } = numbersWarning
+export type NumbersWarningState = string
+
+export const name = 'state.numbers-warnings'
+export const initialState: NumbersWarningState = '';
+
+const { cell, stream, update } = createState<NumbersWarningState>(name, initialState)
+
+export const numbersWarning = cell;
+export const numbersWarning$ = stream
+export const updateNumbersWarning = update

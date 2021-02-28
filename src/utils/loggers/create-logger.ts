@@ -16,14 +16,14 @@ const devtools = process.env.NODE_ENV === 'development' && (window as any).__RED
  * By default connects to redux devtools.
  * @param stateMap observables with state, which will be passed to redux devtools or console.log
  * @param dispatcher dispatcher stream
- * @param ops
+ * @param options
  */
 export const createLogger = <T = { [key: string]: Observable<any> }>(
   dispatcher: Observable<Intent>,
   stateUpdaters: Observable<{ name: string, byUseCase: string, payload?: any }>,
   useCases: Observable<{ name: string, payload?: any }>,
   stateMap: T & { [key: string]: Observable<any> },
-  ops: { log?: boolean } = {}
+  options: { log?: boolean } = {}
 ) => {
 
   const stateNames = Object.keys(stateMap)
@@ -37,7 +37,7 @@ export const createLogger = <T = { [key: string]: Observable<any> }>(
 
   const lastChangedState = merge(...stateObservablesArr)
 
-  const state = combineLatest(...stateObservablesArr)
+  const state = combineLatest(stateObservablesArr)
     .pipe(
       map(
         stateArr => stateArr.reduce((wholeState, [streamName, streamState]) => {
@@ -57,21 +57,23 @@ export const createLogger = <T = { [key: string]: Observable<any> }>(
       tap(
         ([[[lastChangedStateName], currentState], updater]) => devtools.send(
           {
-            type: `[state] ${lastChangedStateName} <- ${updater.name} <- ${updater.byUseCase}`,
-            useCaseName: updater.byUseCase,
+            type: `[STATE] ${lastChangedStateName}`,
+            useCase: updater.byUseCase,
             updater: updater.name,
+            payload: updater.payload,
             lastChangedState: lastChangedStateName,
-            payload: updater.payload
           },
           currentState
         )
       ),
-      ops.log
+      options.log
         ? tap(
           ([[[lastChangedStateName], currentState], updater]) => {
-            console.group(`[state] ${lastChangedStateName} <- ${updater.name} <- ${updater.byUseCase}`)
-            console.log(updater.payload)
-            console.log(currentState)
+            console.group(`[STATE] ${lastChangedStateName}`)
+            console.log('useCase:', updater.byUseCase)
+            console.log('updater:', updater.name)
+            console.log('payload:', updater.payload)
+            console.log('state:', currentState)
             console.groupEnd()
           }
         )
@@ -85,16 +87,16 @@ export const createLogger = <T = { [key: string]: Observable<any> }>(
       withLatestFrom(state),
       tap(
         ([intent, currentState]) => devtools.send(
-          { ...intent, type: `[intent] ${intent.type}` },
+          { ...intent, type: `[INTENT] ${intent.type}` },
           currentState
         )
       ),
-      ops.log
+      options.log
         ? tap(
           ([intent, currentState]) => {
-            console.group(`[intent] ${intent.type}`)
-            console.log(intent)
-            console.log(currentState)
+            console.group(`[INTENT] ${intent.type}`)
+            console.log('payload:', intent.payload)
+            console.log('state:', currentState)
             console.groupEnd()
           }
         )
@@ -106,14 +108,15 @@ export const createLogger = <T = { [key: string]: Observable<any> }>(
     withLatestFrom(state),
     tap(
       ([{ name, payload }, currentState]) => devtools.send(
-        { type: `[useCase] ${name}`, payload },
+        { type: `[USE_CASE] ${name}`, payload },
         currentState
       )
     ),
-    ops.log
+    options.log
       ? tap(
         ([{ name, payload }]) => {
-          console.group(`[useCase] ${name}`, payload)
+          console.group(`[USE_CASE] ${name}`)
+          console.log('payload:', payload)
           console.groupEnd()
         }
       )

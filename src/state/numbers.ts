@@ -3,8 +3,13 @@ import { createStateUpdater } from '../utils/architecture/create-state-updater'
 
 
 export type NumbersState = number[]
-const name = 'numbers'
-const numbers = createState<NumbersState>(name, [])
-export const { stream: numbersStream, update: updateNumbers } = numbers
 
-export const clearNumbers = createStateUpdater(name, state => [], numbers.subject)
+export const name = 'state.numbers'
+export const initialState: NumbersState = [];
+
+const { cell, subject, stream, update } = createState<NumbersState>(name, initialState)
+
+export const numbers = cell;
+export const numbers$ = stream;
+export const updateNumbers = update;
+export const clearNumbers = createStateUpdater(name, () => initialState, subject)

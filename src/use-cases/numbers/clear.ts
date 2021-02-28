@@ -9,12 +9,13 @@ interface SideEffects {
   clearNumbers: typeof clearNumbers
 }
 
-const name = 'numbers/clear'
+const name = 'use-case.numbers.clear'
 export const { useCase: clearNumbersUseCase, intent: clearNumbersIntent } = createUseCase<SideEffects>(name,
   (intents, se) =>
     intents
       .pipe(
         tap(() => se.clearNumbers(name))
       ),
-  { intent: { dispatch } }
+  dispatch,
+  { intent: true }
 )

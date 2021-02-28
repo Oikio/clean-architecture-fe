@@ -1,7 +1,7 @@
 import { dispatcher } from '../dispatcher'
-import { evenNumbersStream } from '../state/even-numbers'
-import { numbersStream } from '../state/numbers'
-import { numbersWarningStream } from '../state/numbers-warning'
+import { name as numbersName, numbers$ } from '../state/numbers'
+import { name as evenNumbersName, evenNumbers$ } from '../state/even-numbers'
+import { name as numbersWarningName, numbersWarning$ } from '../state/numbers-warning'
 import { _stateUpdatersStream } from '../utils/architecture/create-state-updater'
 import { _useCasesStream } from '../utils/architecture/create-use-case'
 import { createLogger } from '../utils/loggers/create-logger'
@@ -13,10 +13,13 @@ if (process.env.NODE_ENV === 'development') {
     _stateUpdatersStream,
     _useCasesStream,
     {
-      numbers: numbersStream,
-      evenNumbers: evenNumbersStream,
-      numbersWarning: numbersWarningStream
-    }
+      [numbersName]: numbers$,
+      [evenNumbersName]: evenNumbers$,
+      [numbersWarningName]: numbersWarning$
+    },
+    {
+      log: true
+    },
   )
 
   // HMR

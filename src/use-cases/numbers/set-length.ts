@@ -21,7 +21,7 @@ const createNumbersArrOfLength = (n: number) => {
   return arr
 }
 
-const name = 'numbers/setLength'
+const name = 'use-case.numbers.set-length'
 export const { useCase: setNumbersLengthUseCase, intent: setNumbersLengthIntent } =
   createUseCase<SideEffects, Payload>(name,
     (intents, se) =>
@@ -30,5 +30,6 @@ export const { useCase: setNumbersLengthUseCase, intent: setNumbersLengthIntent 
           map(intent => createNumbersArrOfLength(intent.payload)),
           tap(payload => se.updateNumbers(name, payload))
         ),
-    { intent: { dispatch } }
+    dispatch,
+    { intent: true }
   )

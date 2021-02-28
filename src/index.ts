@@ -1,4 +1,4 @@
-// logger
+// infrastructure
 import './services/logger'
 // business layer
 import './use-cases'

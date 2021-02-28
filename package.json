@@ -19,11 +19,11 @@
   "license": "ISC",
   "dependencies": {
     "fp-ts": "^1.12.3",
+    "observable-hooks": "^3.1.2",
     "react": "16.8.6",
     "react-dom": "16.8.6",
     "react-inlinesvg": "^0.8.1",
     "rxjs": "^6.5.2",
-    "rxjs-hooks": "^0.5.1",
     "tachyons": "^4.11.1"
   },
   "devDependencies": {
