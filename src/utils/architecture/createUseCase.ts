@@ -1,10 +1,10 @@
-import { identity, Observable, Subject, Subscription } from 'rxjs'
+import { identity, Observable, Subject } from 'rxjs'
 import { filter, tap } from 'rxjs/operators'
 
-import { createIntent, Intent } from './createIntent'
+import { createIntent } from './createIntent'
+import { Intent, UseCase, UseCaseCallback } from './types'
 
-
-interface Ops {
+interface Options {
   /**
    * If UseCase has intent to trigger it, then intentsStream would be filtered by the name of the UseCase.
    * Intent needs dispatch method form dispatcher to be passed in configuration.
@@ -13,43 +13,32 @@ interface Ops {
   intent?: { dispatch: (intent: Intent<any>) => void }
 }
 
-type UseCaseCallback<SideEffects, IntentType = any> = {
-  (intentsStream: Observable<Intent<IntentType>>, sideEffects: SideEffects): Observable<any>
-}
-
-type UseCase<SideEffects, IntentType = any> = {
-  (intentsStream: Observable<Intent<IntentType>>, sideEffects: SideEffects): Subscription
-}
-
-export const _useCasesStream = new Subject<{ name: string, payload?: any }>()
+export const _useCasesStream = new Subject<{ name: string, payload: any }>()
 
 export function createUseCase<SideEffects>(
   name: string,
   useCase: UseCaseCallback<SideEffects>,
-  ops?: Ops
-): { useCase: UseCase<SideEffects>, intent: () => void }
+  options?: Options
+): { useCase: UseCase<SideEffects>; intent: () => void }
 
 export function createUseCase<SideEffects, T>(
   name: string,
   useCase: UseCaseCallback<SideEffects, T>,
-  ops?: Ops
-): {
-  useCase: UseCase<SideEffects, T>, intent: (payload: T) => void
-}
+  options?: Options
+): { useCase: UseCase<SideEffects, T>; intent: (payload: T) => void }
 
 export function createUseCase<SideEffects, T>(
   name: string,
   useCase: UseCaseCallback<SideEffects, T>,
-  ops: Ops = {}
-): {
-  useCase: UseCase<SideEffects, T>, intent: (payload: T) => void
-} {
-  return {
+  options?: Options
+) {
+  const { intent } = options || {};
+  const useCaseAndIntent = {
     useCase: (intentsStream: Observable<Intent<T>>, sideEffects: SideEffects) =>
       useCase(
         intentsStream
           .pipe(
-            ops.intent
+            intent
               ? filter((intent: Intent) => intent.type === name)
               : identity,
             process.env.NODE_ENV === 'development'
@@ -59,6 +48,9 @@ export function createUseCase<SideEffects, T>(
         sideEffects
       )
         .subscribe(),
-    intent: ops.intent ? createIntent<T>(name, ops.intent.dispatch) : undefined!
-  }
+
+      intent: intent ? createIntent<T>(name, intent.dispatch) : undefined!
+  } as { useCase: UseCase<SideEffects, T>; intent: (payload: T) => void }
+
+  return useCaseAndIntent
 }

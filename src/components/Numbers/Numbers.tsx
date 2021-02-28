@@ -8,7 +8,7 @@ import { clearNumbersIntent } from '../../useCases/numbers/clear'
 import { setNumbersLengthIntent } from '../../useCases/numbers/setLength'
 import { Title } from '../Title/Title'
 
-export const Numbers: React.StatelessComponent = () => {
+export const Numbers: React.FC = () => {
   const numbers = useObservable(() => numbersStream)
   const evenNumbers = useObservable(() => evenNumbersStream)
   const warning = useObservable(() => numbersWarningStream, undefined)

@@ -7,4 +7,4 @@ const name = 'numbers'
 const numbers = createState<NumbersState>(name, [])
 export const { stream: numbersStream, update: updateNumbers } = numbers
 
-export const clearNumbers = createStateUpdater(name, state => [], numbers.cell)
+export const clearNumbers = createStateUpdater(name, state => [], numbers.subject)

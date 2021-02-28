@@ -6,7 +6,7 @@ import { render, unmountComponentAtNode } from 'react-dom'
 import { Numbers } from './components/Numbers/Numbers'
 
 
-const AppView: React.StatelessComponent<any> = () =>
+const AppView: React.FC = () =>
   <>
     <Numbers />
   </>
