@@ -1,8 +1,8 @@
-import { identity, Observable, Subject } from 'rxjs'
+import { identity, Subject } from 'rxjs'
 import { filter, tap } from 'rxjs/operators'
 
 import { createIntent } from './create-intent'
-import { dispatch as defaultDispatch } from './dispatcher'
+import { dispatch, dispatcher } from './dispatcher'
 import { Intent, UseCase, UseCaseCallback } from './types'
 
 interface Options {
@@ -11,33 +11,32 @@ interface Options {
    * If intent is truthy, createUseCase function will provide intent in returned object
    */
   intent?: boolean,
-  dispatch?: (intent: Intent<any>) => void,
 }
 
 export const _useCasesStream = new Subject<{ name: string, payload: any }>()
 
 export function createUseCase<SideEffects>(
   name: string,
-  useCase: UseCaseCallback<SideEffects>,
+  useCaseCallback: UseCaseCallback<SideEffects>,
   options?: Options,
 ): { useCase: UseCase<SideEffects>; intent: () => void }
 
 export function createUseCase<SideEffects, T>(
   name: string,
-  useCase: UseCaseCallback<SideEffects, T>,
+  useCaseCallback: UseCaseCallback<SideEffects, T>,
   options?: Options,
 ): { useCase: UseCase<SideEffects, T>; intent: (payload: T) => void }
 
 export function createUseCase<SideEffects, T>(
   name: string,
-  useCase: UseCaseCallback<SideEffects, T>,
+  useCaseCallback: UseCaseCallback<SideEffects, T>,
   options?: Options,
 ) {
-  const { intent, dispatch = defaultDispatch } = options || {};
+  const { intent } = options || {};
   const useCaseAndIntent = {
-    useCase: (intentsStream: Observable<Intent<T>>, sideEffects: SideEffects) =>
-      useCase(
-        intentsStream
+    useCase: (sideEffects: SideEffects) =>
+      useCaseCallback(
+        dispatcher
           .pipe(
             intent
               ? filter((intent: Intent) => intent.type === name)
@@ -50,7 +49,7 @@ export function createUseCase<SideEffects, T>(
       )
         .subscribe(),
 
-      intent: intent ? createIntent<T>(name, dispatch) : undefined!
+      intent: intent ? createIntent<T>(name, dispatch) : undefined
   } as { useCase: UseCase<SideEffects, T>; intent: (payload: T) => void }
 
   return useCaseAndIntent

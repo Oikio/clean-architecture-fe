@@ -5,7 +5,7 @@ export interface Intent<T = any> { type: string, payload: T }
 export interface Reducer<T, U = any> { (state: T, payload: U): T }
 
 export type UseCase<SideEffects, IntentType = any> = {
-  (intentsStream: Observable<Intent<IntentType>>, sideEffects: SideEffects): Subscription
+  (sideEffects: SideEffects): Subscription
 }
 
 export type UseCaseCallback<SideEffects, IntentType = any> = {
