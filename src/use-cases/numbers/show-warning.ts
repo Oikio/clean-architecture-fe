@@ -1,9 +1,8 @@
 import { tap } from 'rxjs/operators'
-import { dispatch } from '../../dispatcher'
 
+import { createUseCase } from '../../architecture'
 import { numbers$ } from '../../state/numbers'
 import { updateNumbersWarning } from '../../state/numbers-warning'
-import { createUseCase } from '../../utils/architecture/create-use-case'
 
 
 interface SideEffects {
@@ -24,5 +23,4 @@ export const { useCase: showNumbersWarningUseCase } = createUseCase<SideEffects>
               : se.updateNumbersWarning(name, 'Good boy!')
         )
       ),
-  dispatch,
 )

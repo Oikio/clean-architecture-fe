@@ -1,4 +1,4 @@
-import { createState } from '../utils/architecture/create-state'
+import { createState } from '../architecture'
 
 
 export type NumbersWarningState = string

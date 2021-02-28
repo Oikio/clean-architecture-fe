@@ -1,8 +1,7 @@
 import { map, tap } from 'rxjs/operators'
 
-import { dispatch } from '../../dispatcher'
+import { createUseCase } from '../../architecture'
 import { updateNumbers } from '../../state/numbers'
-import { createUseCase } from '../../utils/architecture/create-use-case'
 
 
 interface SideEffects {
@@ -30,6 +29,5 @@ export const { useCase: setNumbersLengthUseCase, intent: setNumbersLengthIntent 
           map(intent => createNumbersArrOfLength(intent.payload)),
           tap(payload => se.updateNumbers(name, payload))
         ),
-    dispatch,
     { intent: true }
   )

@@ -1,8 +1,7 @@
 import { tap } from 'rxjs/operators'
 
-import { dispatch } from '../../dispatcher'
+import { createUseCase } from '../../architecture'
 import { clearNumbers } from '../../state/numbers'
-import { createUseCase } from '../../utils/architecture/create-use-case'
 
 
 interface SideEffects {
@@ -16,6 +15,5 @@ export const { useCase: clearNumbersUseCase, intent: clearNumbersIntent } = crea
       .pipe(
         tap(() => se.clearNumbers(name))
       ),
-  dispatch,
   { intent: true }
 )

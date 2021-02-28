@@ -3,10 +3,10 @@ import { Subject } from 'rxjs';
 import { Intent } from './types';
 
 export const createDispatcher = <T = any>() => {
-  const dispatcher = new Subject<Intent<T>>()
-  const dispatcher$ = dispatcher.asObservable()
-  const dispatch = (intent: Intent<T>) => dispatcher.next(intent)
-  dispatcher.subscribe()
+  const dispatcherSubject = new Subject<Intent<T>>()
+  const dispatcher = dispatcherSubject.asObservable()
+  const dispatch = (intent: Intent<T>) => dispatcherSubject.next(intent)
+  dispatcherSubject.subscribe()
 
-  return { dispatcher: dispatcher$, dispatch }
+  return { dispatcher, dispatch }
 }

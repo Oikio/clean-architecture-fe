@@ -1,3 +1,3 @@
-import { createDispatcher } from './utils/architecture/create-dispatcher'
+import { createDispatcher } from './create-dispatcher'
 
 export const { dispatcher, dispatch } = createDispatcher()

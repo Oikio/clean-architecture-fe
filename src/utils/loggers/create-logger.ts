@@ -1,7 +1,7 @@
 import { combineLatest, identity, merge, Observable, zip } from 'rxjs'
 import { map, tap, withLatestFrom, skip } from 'rxjs/operators'
 
-import { Intent } from '../architecture/types'
+import { Intent } from '../../architecture/types'
 
 
 /**

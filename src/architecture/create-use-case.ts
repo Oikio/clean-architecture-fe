@@ -2,6 +2,7 @@ import { identity, Observable, Subject } from 'rxjs'
 import { filter, tap } from 'rxjs/operators'
 
 import { createIntent } from './create-intent'
+import { dispatch as defaultDispatch } from './dispatcher'
 import { Intent, UseCase, UseCaseCallback } from './types'
 
 interface Options {
@@ -9,7 +10,8 @@ interface Options {
    * If UseCase has intent to trigger it, then intentsStream would be filtered by the name of the UseCase.
    * If intent is truthy, createUseCase function will provide intent in returned object
    */
-  intent?: boolean
+  intent?: boolean,
+  dispatch?: (intent: Intent<any>) => void,
 }
 
 export const _useCasesStream = new Subject<{ name: string, payload: any }>()
@@ -17,24 +19,21 @@ export const _useCasesStream = new Subject<{ name: string, payload: any }>()
 export function createUseCase<SideEffects>(
   name: string,
   useCase: UseCaseCallback<SideEffects>,
-  dispatch: (intent: Intent<any>) => void,
   options?: Options,
 ): { useCase: UseCase<SideEffects>; intent: () => void }
 
 export function createUseCase<SideEffects, T>(
   name: string,
   useCase: UseCaseCallback<SideEffects, T>,
-  dispatch: (intent: Intent<any>) => void,
   options?: Options,
 ): { useCase: UseCase<SideEffects, T>; intent: (payload: T) => void }
 
 export function createUseCase<SideEffects, T>(
   name: string,
   useCase: UseCaseCallback<SideEffects, T>,
-  dispatch: (intent: Intent<any>) => void,
   options?: Options,
 ) {
-  const { intent } = options || {};
+  const { intent, dispatch = defaultDispatch } = options || {};
   const useCaseAndIntent = {
     useCase: (intentsStream: Observable<Intent<T>>, sideEffects: SideEffects) =>
       useCase(
