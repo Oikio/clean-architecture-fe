@@ -1,52 +1,38 @@
 {
-  "name": "clean-architecture",
-  "version": "0.0.0",
-  "description": "",
-  "main": "dist/app.js",
-  "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "clean": "rm -rf dist/*",
-    "dev": "npm run clean && parcel src/assets/index.html --no-autoinstall",
-    "build": "npm run clean && parcel build src/assets/index.html",
-    "lint:ts": "tslint --project tsconfig.json",
-    "lint:tsc": "tsc --noEmit -p .",
-    "lint:scss": "sass-lint -c .sass-lint.json 'src/**/*.scss' -v -q",
-    "lint": "run-s lint:* --silent",
-    "precommit": "run-s lint"
+  "name": "@oikio/cafe-rxjs",
+  "version": "0.0.3",
+  "packageManager": "yarn@3.2.3",
+  "author": "Oikio <oikiostas@gmail.com>",
+  "main": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oikio/clean-architecture-fe.git"
   },
-  "author": "Oikio",
-  "license": "ISC",
-  "dependencies": {
-    "fp-ts": "^1.12.3",
-    "react": "16.8.6",
-    "react-dom": "16.8.6",
-    "react-inlinesvg": "^0.8.1",
-    "rxjs": "^6.5.2",
-    "rxjs-hooks": "^0.5.1",
-    "tachyons": "^4.11.1"
+  "types": "lib/types.d.ts",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Oikio/clean-architecture-fe/issues"
+  },
+  "homepage": "https://github.com/Oikio/clean-architecture-fe#readme",
+  "scripts": {
+    "build": "rm -rf ./lib && mkdir lib && cp package.json lib/package.json && cp readme.md lib/readme.md && tsc",
+    "test": "test",
+    "publish": "yarn build && cd lib && yarn npm publish --access public"
   },
   "devDependencies": {
-    "@types/enzyme": "^3.1.15",
-    "@types/enzyme-adapter-react-16": "^1.0.5",
-    "@types/jest": "^23.3.12",
-    "@types/node": "^10.12.18",
-    "@types/react": "^16.8.23",
-    "@types/react-dom": "^16.8.5",
-    "@types/sinon": "^7.0.3",
-    "enzyme": "^3.8.0",
-    "enzyme-adapter-react-16": "^1.14.0",
-    "jest": "^24.8.0",
-    "node-sass": "^4.11.0",
-    "npm-run-all": "^4.1.5",
-    "parcel-bundler": "1.12.3",
-    "parcel-plugin-bundle-visualiser": "^1.2.0",
-    "sass-lint": "^1.12.1",
-    "sinon": "^7.2.2",
-    "ts-jest": "^24.0.2",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.12.1",
-    "tslint-react": "^3.6.0",
-    "typescript": "^3.5.3"
+    "@types/node": "^18.7.14",
+    "@types/react": "18.*.*",
+    "immer": "9.*.*",
+    "react": "18.*.*",
+    "rxjs": "6.*.*",
+    "rxjs-spy": "^8.0.2",
+    "typescript": "^4.8.2"
+  },
+  "peerDependencies": {
+    "@types/react": "18.*.*",
+    "immer": "9.*.*",
+    "react": "18.*.*",
+    "rxjs": "6.*.*",
+    "rxjs-spy": "^8.0.2"
   }
 }

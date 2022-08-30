@@ -1,0 +1,4 @@
+- use workspaces for publishing
+- finalize publish pipeline
+- decide on default dispatcher issue
+- add testing example (add jest and etc)
